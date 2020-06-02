@@ -17,7 +17,7 @@ const SignUp = () => {
                     secureTextEntry={true}
                     placeholder="Confirm Password"
                 />
-                <Picker
+                {/* <Picker
                     selectedValue={currency}
                     onValueChange={currentCurrency => setCurrency(currentCurrency)}>
                     <Picker.Item label="USD" value="US Dollars" />
@@ -26,7 +26,7 @@ const SignUp = () => {
                 </Picker>
                 <Text>
                     Select how you'll pay her: {currency}
-                </Text>
+                </Text> */}
             </View>
         </View>
     )

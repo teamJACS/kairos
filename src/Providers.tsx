@@ -1,10 +1,9 @@
-import React from 'react';
-import { AuthProvider } from './AuthProvider';
-import { Routes } from '../components/Routes';
 
-interface ProvidersProps {
+import React from "react";
+import { AuthProvider } from "./AuthProvider";
+import { Routes } from "../components/Routes";
 
-}
+interface ProvidersProps { }
 
 export const Providers: React.FC<ProvidersProps> = ({ }) => {
     return (
@@ -12,4 +11,4 @@ export const Providers: React.FC<ProvidersProps> = ({ }) => {
             <Routes />
         </AuthProvider>
     );
-}
+};

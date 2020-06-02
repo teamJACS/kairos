@@ -7,6 +7,11 @@
     "noEmit": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "strict": true
+    "strict": true,
+    "allowJs": true,
+    "target": "es6",
+    "emitDecoratorMetadata": true,  //for sequelize
+    "experimentalDecorators": true, //for sequelize
+    "types": ["node"]
   }
 }

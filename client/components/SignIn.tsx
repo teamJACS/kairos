@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import SignUp from './SignUp';
 
-const logo = require('../resources/logo_size.jpg');
+const logo = require('../../assets/logo_size.jpg');
 
 
 export default function SignIn() {

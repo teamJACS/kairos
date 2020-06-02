@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet, Button, SafeAreaView } from 'react-native';
+import { View, TextInput, Text, StyleSheet, Button, SafeAreaView, TouchableOpacity } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import Constants from 'expo-constants';
 
@@ -75,21 +75,24 @@ export const Listing = () => {
         {/* Buttons */}
         <View style={styles.buttons}>
           <View style={styles.fixToText}>
-            <Button
-              title="Delete"
+            <TouchableOpacity
               color="#841584"
               onPress={() => Alert.alert('Left button pressed')}
-            />
-            <Button
-              title="Save"
+            >
+              <Text>Delete</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
               color="#841584"
               onPress={() => Alert.alert('Right button pressed')}
-            />
-            <Button
-              title="Create"
+            >
+              <Text>Save</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
               color="#841584"
               onPress={() => Alert.alert('Right button pressed')}
-            />
+            >
+              <Text>Create</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>

@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { ApolloServer } from "apollo-server-express";
-import * as cors from "cors";
+// import * as cors from "cors";
 import * as express from "express";
 
 import "./src/db/connection";

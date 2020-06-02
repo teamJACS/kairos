@@ -9,6 +9,7 @@ import { AppTabs } from '../src/AppTabs'
 import SignUp from './SignUp'
 import SignIn from './SignIn'
 
+
 interface RoutesProps { }
 
 const Stack = createStackNavigator<AuthParamList>()
@@ -21,6 +22,7 @@ function Register({ navigation, route }: AuthNavProps<"Register">) {
             <Text>route name: {route.name}</Text>
             < SignUp />
             <Button
+
                 title="go to login"
                 onPress={() => {
                     navigation.navigate("Login");
@@ -32,19 +34,20 @@ function Register({ navigation, route }: AuthNavProps<"Register">) {
 }
 
 function Login({ navigation }: AuthNavProps<"Login">) {
-    const { login } = useContext(AuthContext);
+    const { user, login } = useContext(AuthContext);
     return (
         <Center>
-            <Text>I am a login screen</Text>
             <SignIn />
             <Button
-                title="log me in"
+                color="white"
+                title="Sign In"
                 onPress={() => {
                     login();
                 }}
             />
             <Button
-                title="go to register"
+                color="white"
+                title="Create New User"
                 onPress={() => {
                     navigation.navigate("Register");
                 }}

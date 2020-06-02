@@ -1,6 +1,6 @@
-import { Routes } from './components/Routes'
+import { Providers } from './src/Providers'
 
-export default Routes
+export default Providers;
 
 // import React, { useState } from 'react';
 // import { StyleSheet, Text, View, Button } from 'react-native';
@@ -13,7 +13,7 @@ export default Routes
 //   return (
 //     <View style={styles.container}>
 //       {/* <Text>Hello World</Text> */}
-//       <SignIn />
+//       {/* <SignIn /> */}
 //       {/* <Button onPress={handleSignUp} /> */}
 //     </View >
 //   );

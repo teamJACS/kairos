@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { StyleSheet, View, Text, Button, ActivityIndicator, AsyncStorage } from "react-native";
+import { StyleSheet, View, Text, Button, ActivityIndicator, AsyncStorage, TextInput } from "react-native";
 import { createStackNavigator, StackNavigationProp } from "@react-navigation/stack";
 import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import { AuthContext } from '../src/AuthProvider'
@@ -8,6 +8,7 @@ import { AuthParamList, AuthNavProps } from '../src/AuthParamList'
 import { AppTabs } from '../src/AppTabs'
 import SignUp from './SignUp'
 import SignIn from './SignIn'
+// import { TextInput } from "react-native-gesture-handler";
 
 
 interface RoutesProps { }
@@ -35,9 +36,22 @@ function Register({ navigation, route }: AuthNavProps<"Register">) {
 
 function Login({ navigation }: AuthNavProps<"Login">) {
     const { user, login } = useContext(AuthContext);
+    const [username, setUsername] = React.useState('username');
+    const [pw, setPw] = React.useState('password');
     return (
         <Center>
             <SignIn />
+            <TextInput
+                style={{ height: 40, borderColor: 'white', borderWidth: 1, width: 100, textAlign: 'center' }}
+                onChangeText={text => setUsername(text)}
+                value={username}
+            />
+            <TextInput
+                style={{ height: 40, borderColor: 'white', borderWidth: 1, width: 100, textAlign: 'center' }}
+                onChangeText={text => setPw(text)}
+                value={pw}
+            />
+
             <Button
                 color="white"
                 title="Sign In"
@@ -93,17 +107,17 @@ export const Routes: React.FC<RoutesProps> = ({ }) => {
                         // screenOptions={{
                         //     header: () => null
                         // }}
-                        initialRouteName="Register"
+                        initialRouteName="Login"
                     >
                         <Stack.Screen
                             options={{
-                                headerTitle: 'Sign In'
+                                headerTitle: 'Login'
                             }}
                             name='Login'
                             component={Login} />
                         <Stack.Screen
                             options={{
-                                headerTitle: "Sign Up"
+                                headerTitle: "Register"
                             }}
                             name='Register'
                             component={Register} />

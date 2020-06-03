@@ -10,15 +10,15 @@ import { ApolloProvider } from '@apollo/react-hooks'
 interface ProvidersProps { }
 
 export const Providers: React.FC<ProvidersProps> = ({ }) => {
-    const uri = 'http://localhost:3000/graphql'
+  const uri = 'http://localhost:3000/graphql'
 
-    const client = new ApolloClient({ uri })
+  const client = new ApolloClient({ uri })
 
-    return (
-        <ApolloProvider client={client}>
-            <AuthProvider>
-                <Routes />
-            </AuthProvider>
-        </ApolloProvider>
-    );
+  return (
+    <ApolloProvider client={client}>
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
+    </ApolloProvider>
+  );
 };

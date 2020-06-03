@@ -3,7 +3,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AppParamList } from './AppParamList';
 import { Text, Button, View } from "react-native";
 import { Center } from "../components/Center";
-import { AuthContext } from './AuthProvider'
+import { AuthContext } from './AuthProvider';
+import JobListView from '../components/JobListView';
 
 import { Listing } from '../components/Listing'
 
@@ -28,10 +29,6 @@ query {
   }
 }
 `
-
-
-
-
 function Home() {
   const { logout } = useContext(AuthContext)
   return (
@@ -65,13 +62,12 @@ export const AppTabs: React.ComponentType<AppTabsProps> = ({ }) => {
     }
     if (error) return <Center><Text>{error.message}</Text></Center>
   }
-  console.log(data)
   return (
     <Tabs.Navigator>
       <Tabs.Screen name='Home' component={Home} />
       <Tabs.Screen name='Application' component={Application} />
+      <Tabs.Screen name='ListView' component={JobListView} />
       <Tabs.Screen name='CRA' component={CreateReactApp} />
     </Tabs.Navigator>
   )
-
 }

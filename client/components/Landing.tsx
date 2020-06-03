@@ -12,7 +12,7 @@ function Landing({ navigation }: AuthNavProps<"Login">) {
       <View style={styles.footer}>
         <Button
           color="dodgerblue"
-          title="Sign In"
+          title="Log In"
           onPress={() => {
             navigation.navigate("Login");
           }}

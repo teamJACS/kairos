@@ -10,7 +10,8 @@ export const Center: React.FC<CenterProps> = ({ children }) => {
         <View style={{
             flex: 1,
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
+            backgroundColor: "white"
         }}
         >
             {children}

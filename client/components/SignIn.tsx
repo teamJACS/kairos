@@ -1,37 +1,30 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
-import SignUp from './SignUp';
+import { Center } from './Center'
+import { AuthContext } from '../src/AuthProvider'
 
+<<<<<<< HEAD
 const logo = require('../../assets/logo_size.jpg');
+=======
+const logo = require('../../assets/kairos_logo.png');
+>>>>>>> 2c0bc5fcfa678e33d3bec61894245a57168d6db2
 
 
 export default function SignIn() {
 
-    // const [loginStatus, setLogin] = useState(false)
-    // console.log('App executed')
-
-    // const handleSignUp = () => setLogin(true)
-
-    // if (loginStatus) {
-    //     return (
-    //         <View>
-    //             <SignUp />
-    //         </View>
-    //     )
-    // } else {
     return (
-        <View>
-            <Text>Welcome to Kairos</Text>
+        <View style={styles.text}>
+            <Text style={{ color: "skyblue", fontSize: 40, fontWeight: "bold" }} >Welcome User</Text>
             <Image source={logo} />
-            {/* <Button
-                    onPress={handleSignUp}
-                    title="Create New Account"
-                /> */}
         </View>
     )
-    // }
+
 }
 
 const styles = StyleSheet.create({
-
+    text: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center"
+    }
 })

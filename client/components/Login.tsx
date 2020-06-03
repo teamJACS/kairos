@@ -5,11 +5,10 @@ import { AuthNavProps } from '../src/AuthParamList'
 import { Input, Button } from 'react-native-elements';
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const Signup = ({ navigation, route }: AuthNavProps<"Login">) => {
-  // const { user } = useContext(AuthContext);
+const Login = ({ navigation, route }: AuthNavProps<"Login">) => {
+  const { user, login } = useContext(AuthContext)
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [confirmPassword, setConfirmPassword] = React.useState('');
 
   const handleChangeEmail = (email: string) => {
     setEmail(email)
@@ -17,48 +16,46 @@ const Signup = ({ navigation, route }: AuthNavProps<"Login">) => {
   const handleChangePassword = (password: string) => {
     setPassword(password)
   }
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.text_header}>Welcome!</Text>
+        <Text style={styles.text_header}>Welcome Back!</Text>
       </View>
 
       <View style={styles.footer}>
-        <Input
+        <Input 
           placeholder="email@address.com"
           leftIcon={{ type: 'material', name: 'email' }}
           onChangeText={(email) => handleChangeEmail(email)}
         />
-        <Input
+        <Input 
           placeholder="Password"
-          leftIcon={{ type: 'material', name: 'lock' }}
-          secureTextEntry
-          onChangeText={(pw) => handleChangePassword(pw)}
-        />
-        <Input
-          placeholder="Confirm Password"
           leftIcon={{ type: 'material', name: 'lock' }}
           secureTextEntry
           errorStyle={{ color: 'red' }}
           errorMessage='ENTER A VALID ERROR HERE'
           onChangeText={(pw) => handleChangePassword(pw)}
         />
+
         <Button
           style={styles.button}
-          title="Sign Up"
+          title="Log In"
           buttonStyle={{
-            backgroundColor: 'dodgerblue'
+            backgroundColor:'dodgerblue'
+          }}
+          onPress={() => {
+            login();
           }}
         />
         <View style={styles.goBack}>
-          <Text>
-            Already have an account?
+          <Text> 
+            Don't have an account?
           </Text>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => navigation.navigate('Register')}
           >
-            <Text> Sign In </Text>
+            <Text> Sign Up </Text>
           </TouchableOpacity>
         </View>
 
@@ -67,12 +64,12 @@ const Signup = ({ navigation, route }: AuthNavProps<"Login">) => {
   );
 }
 
-const { height } = Dimensions.get("screen");
+const {height} = Dimensions.get("screen");
 const height_logo = height * 0.28;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1, 
     backgroundColor: '#b6e1f6'
   },
   header: {
@@ -104,10 +101,22 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'grey',
-    marginTop: 5
+    marginTop:5
   },
   button: {
     marginTop: 10,
+  },
+  signIn: {
+    width: 150,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    flexDirection: 'row'
+  },
+  textSign: {
+    color: 'white',
+    fontWeight: 'bold'
   },
   goBack: {
     marginTop: 10,
@@ -116,5 +125,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Signup
+export default Login
 

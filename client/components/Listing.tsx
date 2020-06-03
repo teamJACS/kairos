@@ -9,6 +9,17 @@ export const Listing = () => {
   const [date, setDate] = React.useState("2016-05-15")
   const [notes, setNotes] = React.useState('Notes')
 
+  const saveButton = () => {
+    return;
+  }
+
+  const createButton = () => {
+    return;
+  }
+  const deleteButton = () => {
+    return;
+  }
+
   return (
     <SafeAreaView>
       <View style={{ flex: 1, justifyContent: "center" }}>
@@ -75,23 +86,29 @@ export const Listing = () => {
         {/* Buttons */}
         <View style={styles.buttons}>
           <View style={styles.fixToText}>
+
+            {/* Create Button */}
             <TouchableOpacity
-              color="#841584"
-              onPress={() => Alert.alert('Left button pressed')}
+              style={{ backgroundColor: "#99ccff", padding: 10, borderRadius: 10 }}
+              onPress={() => createButton()}
             >
-              <Text>Delete</Text>
+              <Text>Create</Text>
             </TouchableOpacity>
+
+            {/* Save Button */}
             <TouchableOpacity
-              color="#841584"
-              onPress={() => Alert.alert('Right button pressed')}
+              style={{ backgroundColor: "#99ffbb", padding: 10, borderRadius: 10 }}
+              onPress={() => saveButton()}
             >
               <Text>Save</Text>
             </TouchableOpacity>
+
+            {/* Delete Button */}
             <TouchableOpacity
-              color="#841584"
-              onPress={() => Alert.alert('Right button pressed')}
+              style={{ backgroundColor: "#ff9999", padding: 10, borderRadius: 10 }}
+              onPress={() => deleteButton()}
             >
-              <Text>Create</Text>
+              <Text>Delete</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -113,7 +130,7 @@ const styles = StyleSheet.create({
   },
   fixToText: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
   },
   separator: {
     marginVertical: 8,
@@ -122,7 +139,6 @@ const styles = StyleSheet.create({
   },
   buttons: {
     flex: 1,
-    justifyContent: "flex-end",
     paddingBottom: 35,
   },
   input: {

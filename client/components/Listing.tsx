@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet, Button, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, TextInput, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import Constants from 'expo-constants';
-import { Header } from 'react-native-elements';
+import { Header, Input, Button, Icon } from 'react-native-elements';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const Listing = () => {
   const [title, setTitle] = React.useState('')
@@ -13,7 +14,6 @@ export const Listing = () => {
   const saveButton = () => {
     return;
   }
-
   const createButton = () => {
     return;
   }
@@ -23,12 +23,12 @@ export const Listing = () => {
 
   return (
     <SafeAreaView>
-      <Text style={{ flexDirection: 'row', justifyContent: "flex-end", paddingLeft: 47, paddingTop: 45, fontSize: 20, fontWeight: "bold" }}>Create/Edit a Listing</Text>
+      <Text style={{ flexDirection: 'row', justifyContent: "flex-end", paddingLeft: 47, paddingTop: 45, fontSize: 20, fontWeight: "bold", color: "dodgerblue" }}>Create/Edit a Listing</Text>
       <View style={{ flex: 1, justifyContent: "center", paddingTop: 70 }}>
         {/* Job Title */}
         <View style={styles.input}>
-          <Text>Job Title</Text>
-          <TextInput
+          {/* <Text>Job Title</Text> */}
+          <Input
             placeholder='Job Title'
             style={styles.inputField}
             onChangeText={text => setTitle(text)}
@@ -37,8 +37,7 @@ export const Listing = () => {
         </View>
         {/* Company */}
         <View style={styles.input}>
-          <Text>Company</Text>
-          <TextInput
+          <Input
             placeholder='Company'
             style={styles.inputField}
             onChangeText={text => setCompany(text)}
@@ -47,22 +46,20 @@ export const Listing = () => {
         </View>
         {/* Applied Date */}
         <View style={styles.input}>
-          <Text>Applied Date</Text>
           <DatePicker
             style={{ width: 175 }}
             date={date}
             mode="date"
-            placeholder="Select Date"
+            placeholder="Applied Date"
             format="YYYY-MM-DD"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
-            showIcon={false}
+            showIcon={true}
             customStyles={{
               dateIcon: {
                 position: 'absolute',
-                left: 0,
+                left: 5,
                 top: 4,
-                marginLeft: 0
               },
               dateInput: {
                 marginLeft: 10
@@ -74,8 +71,7 @@ export const Listing = () => {
         </View>
         {/* Notes */}
         <View style={styles.input}>
-          <Text>Notes</Text>
-          <TextInput
+          <Input
             placeholder='Notes'
             style={styles.inputField}
             onChangeText={text => setNotes(text)}
@@ -85,8 +81,8 @@ export const Listing = () => {
 
         {/* Status */}
         <View style={styles.status}>
-          <Text>Current Status</Text>
-          <Text>Status</Text>
+          <Text style={{ color: "dodgerblue", fontWeight: 'bold', fontSize: 18 }}>Current Status:</Text>
+          <Text style={{ color: "dodgerblue", fontWeight: 'bold', fontSize: 18 }}>Status</Text>
         </View>
 
         {/* Buttons */}
@@ -94,28 +90,40 @@ export const Listing = () => {
           <View style={styles.fixToText}>
 
             {/* Create Button */}
-            <TouchableOpacity
-              style={{ backgroundColor: "#99ccff", padding: 10, borderRadius: 10 }}
+            <Button
+              title='Create'
+              type="outline"
+              raised={true}
+              titleStyle={{ color: "white" }}
+              buttonStyle={{ backgroundColor: "#99ccff", borderRadius: 10 }}
+
+              // style={{ backgroundColor: "#99ccff", padding: 10, borderRadius: 10 }}
               onPress={() => createButton()}
             >
-              <Text>Create</Text>
-            </TouchableOpacity>
+            </Button>
 
             {/* Save Button */}
-            <TouchableOpacity
-              style={{ backgroundColor: "#99ffbb", padding: 10, borderRadius: 10 }}
-              onPress={() => saveButton()}
+            <Button
+              title='Save'
+              type="outline"
+              raised={true}
+              titleStyle={{ color: "white" }}
+              buttonStyle={{ backgroundColor: "#99ffbb", borderRadius: 10, }}
+              // style={{ backgroundColor: "#99ccff", padding: 10, borderRadius: 10 }}
+              onPress={() => createButton()}
             >
-              <Text>Save</Text>
-            </TouchableOpacity>
+            </Button>
 
             {/* Delete Button */}
-            <TouchableOpacity
-              style={{ backgroundColor: "#ff9999", padding: 10, borderRadius: 10 }}
+            <Button
+              title="Delete"
+              type="outline"
+              raised={true}
+              titleStyle={{ color: "white" }}
+              buttonStyle={{ backgroundColor: "#ff7676", borderRadius: 10 }}
               onPress={() => deleteButton()}
             >
-              <Text>Delete</Text>
-            </TouchableOpacity>
+            </Button>
           </View>
         </View>
       </View>
@@ -146,7 +154,9 @@ const styles = StyleSheet.create({
   buttons: {
     flex: 1,
     flexDirection: 'column-reverse',
-    paddingBottom: 15
+    paddingBottom: 10,
+    marginLeft: 5,
+    marginRight: 5
   },
   input: {
     flexDirection: "row",
@@ -158,14 +168,14 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    width: 150,
+    width: 100,
     textAlign: 'center'
   },
   status: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingTop: 150
+    paddingTop: 110
   }
 });
 

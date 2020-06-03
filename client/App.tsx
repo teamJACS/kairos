@@ -6,6 +6,7 @@ export default Providers;
 // import { StyleSheet, Text, View, Button } from 'react-native';
 // import SignUp from './components/SignUp';
 // import SignIn from './components/SignIn';
+// import { Listing } from './components/Listing'
 
 
 // export default function App() {
@@ -15,6 +16,7 @@ export default Providers;
 //       {/* <Text>Hello World</Text> */}
 //       {/* <SignIn /> */}
 //       {/* <Button onPress={handleSignUp} /> */}
+//       <Listing />
 //     </View >
 //   );
 // }

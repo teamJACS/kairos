@@ -4,8 +4,12 @@ import { AppParamList } from './AppParamList';
 import { Text, Button, View } from "react-native";
 import { Center } from "../components/Center";
 import { AuthContext } from './AuthProvider'
+
+import { Listing } from '../components/Listing'
+
 import { useQuery } from '@apollo/react-hooks'
 import gql from 'graphql-tag';
+
 
 interface AppTabsProps {
 
@@ -29,14 +33,23 @@ query {
 
 
 function Home() {
-    const { logout } = useContext(AuthContext)
-    return (
-        <Center>
-            <Text>Home</Text>
-            <Button title='logout' onPress={() => logout()} />
-        </Center>
-    );
+  const { logout } = useContext(AuthContext)
+  return (
+    <Center>
+      <Text>Home</Text>
+      <Button title='logout' onPress={() => logout()} />
+    </Center>
+  );
 }
+
+function CreateReactApp() {
+  return (
+    <Center>
+      <Listing />
+    </Center>
+  );
+}
+
 export const AppTabs: React.FC<AppTabsProps> = ({ }) => {
     const { loading, error, data } = useQuery(FIRST_QUERY)
 
@@ -55,7 +68,9 @@ export const AppTabs: React.FC<AppTabsProps> = ({ }) => {
             <Tabs.Navigator>
                 <Tabs.Screen name='Home' component={Home} />
                 <Tabs.Screen name='Application' component={Application} />
+                <Tabs.Screen name='CRA' component={CreateReactApp} />
             </Tabs.Navigator>
         )
     }
+
 }

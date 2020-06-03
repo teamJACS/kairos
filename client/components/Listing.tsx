@@ -23,8 +23,8 @@ export const Listing = () => {
 
   return (
     <SafeAreaView>
-      <Text style={{ flexDirection: 'row', justifyContent: "flex-end", paddingLeft: 47, paddingTop: 45, fontSize: 20, fontWeight: "bold", color: "dodgerblue" }}>Create/Edit a Listing</Text>
-      <View style={{ flex: 1, justifyContent: "center", paddingTop: 70 }}>
+      <Text style={{ flexDirection: 'row', justifyContent: "flex-end", paddingLeft: 47, paddingTop: 45, fontSize: 25, fontWeight: "bold", color: "dodgerblue" }}>Create/Edit a Listing</Text>
+      <View style={{ flex: 1, justifyContent: "center", paddingTop: 70, backgroundColor: "#fafafa" }}>
         {/* Job Title */}
         <View style={styles.input}>
           {/* <Text>Job Title</Text> */}
@@ -94,7 +94,8 @@ export const Listing = () => {
               title='Create'
               type="outline"
               raised={true}
-              titleStyle={{ color: "white" }}
+              titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
+              containerStyle={{ borderWidth: 1 }}
               buttonStyle={{ backgroundColor: "#99ccff", borderRadius: 10 }}
 
               // style={{ backgroundColor: "#99ccff", padding: 10, borderRadius: 10 }}
@@ -107,8 +108,9 @@ export const Listing = () => {
               title='Save'
               type="outline"
               raised={true}
-              titleStyle={{ color: "white" }}
-              buttonStyle={{ backgroundColor: "#99ffbb", borderRadius: 10, }}
+              titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
+              containerStyle={{ borderWidth: 1 }}
+              buttonStyle={{ backgroundColor: "#43F45B", borderRadius: 10, }}
               // style={{ backgroundColor: "#99ccff", padding: 10, borderRadius: 10 }}
               onPress={() => createButton()}
             >
@@ -119,7 +121,8 @@ export const Listing = () => {
               title="Delete"
               type="outline"
               raised={true}
-              titleStyle={{ color: "white" }}
+              titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
+              containerStyle={{ borderWidth: 1 }}
               buttonStyle={{ backgroundColor: "#ff7676", borderRadius: 10 }}
               onPress={() => deleteButton()}
             >
@@ -154,9 +157,9 @@ const styles = StyleSheet.create({
   buttons: {
     flex: 1,
     flexDirection: 'column-reverse',
-    paddingBottom: 10,
-    marginLeft: 5,
-    marginRight: 5
+    paddingBottom: 15,
+    marginLeft: 6,
+    marginRight: 6
   },
   input: {
     flexDirection: "row",

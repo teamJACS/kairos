@@ -1,14 +1,15 @@
 import React, { useContext } from 'react'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AppParamList } from './AppParamList';
-import { Text, Button, View } from "react-native";
+import { Text, View, SafeAreaView, StyleSheet } from "react-native";
 import { Center } from "../components/Center";
 import { AuthContext } from './AuthProvider';
 import JobListView from '../components/JobListView';
 
 import { Listing } from '../components/Listing'
-
 import { useQuery } from '@apollo/react-hooks'
+import { Button } from 'react-native-elements';
+import { HomePage } from '../components/HomePage';
 import gql from 'graphql-tag';
 
 
@@ -32,14 +33,34 @@ query {
 function Home() {
 	const { logout } = useContext(AuthContext)
 	return (
-		<Center>
-			<Text>Home</Text>
-			<Button title='logout' onPress={() => logout()} />
-		</Center>
+		<View>
+			<HomePage />
+			<View style={styles.button}>
+				<Button
+					title='logout'
+					type="outline"
+					raised={true}
+					titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
+					containerStyle={{ borderWidth: 1 }}
+					buttonStyle={{ backgroundColor: "#99ccff", borderRadius: 10, }}
+					onPress={() => logout()}
+				>
+				</Button>
+			</View>
+		</View>
 	);
 }
+const styles = StyleSheet.create({
+	button: {
+		flex: 1,
+		justifyContent: 'flex-end',
+		marginBottom: 15,
+		position: 'absolute',
+		bottom: 0
+	}
+})
 
-function CreateReactApp() {
+function AddUpdateListing() {
 	return (
 		<Center>
 			<Listing />
@@ -66,8 +87,8 @@ export const AppTabs: React.ComponentType<AppTabsProps> = ({ }) => {
 		<Tabs.Navigator>
 			<Tabs.Screen name='Home' component={Home} />
 			<Tabs.Screen name='Application' component={Application} />
-			<Tabs.Screen name='ListView' component={JobListView} />
-			<Tabs.Screen name='CRA' component={CreateReactApp} />
+			<Tabs.Screen name='List View' component={JobListView} />
+			<Tabs.Screen name='Add/Update' component={AddUpdateListing} />
 		</Tabs.Navigator>
 	)
 }

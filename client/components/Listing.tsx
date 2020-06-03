@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { View, TextInput, Text, StyleSheet, Button, SafeAreaView, TouchableOpacity } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import Constants from 'expo-constants';
+import { Header } from 'react-native-elements';
 
 export const Listing = () => {
-  const [title, setTitle] = React.useState('Job Title')
-  const [company, setCompany] = React.useState('Company')
-  const [date, setDate] = React.useState("2016-05-15")
-  const [notes, setNotes] = React.useState('Notes')
+  const [title, setTitle] = React.useState('')
+  const [company, setCompany] = React.useState('')
+  const [date, setDate] = React.useState("")
+  const [notes, setNotes] = React.useState('')
 
   const saveButton = () => {
     return;
@@ -22,11 +23,13 @@ export const Listing = () => {
 
   return (
     <SafeAreaView>
-      <View style={{ flex: 1, justifyContent: "center" }}>
+      <Text style={{ flexDirection: 'row', justifyContent: "flex-end", paddingLeft: 47, paddingTop: 45, fontSize: 20, fontWeight: "bold" }}>Create/Edit a Listing</Text>
+      <View style={{ flex: 1, justifyContent: "center", paddingTop: 70 }}>
         {/* Job Title */}
         <View style={styles.input}>
           <Text>Job Title</Text>
           <TextInput
+            placeholder='Job Title'
             style={styles.inputField}
             onChangeText={text => setTitle(text)}
             value={title}
@@ -36,6 +39,7 @@ export const Listing = () => {
         <View style={styles.input}>
           <Text>Company</Text>
           <TextInput
+            placeholder='Company'
             style={styles.inputField}
             onChangeText={text => setCompany(text)}
             value={company}
@@ -44,14 +48,15 @@ export const Listing = () => {
         {/* Applied Date */}
         <View style={styles.input}>
           <Text>Applied Date</Text>
-          <DatePicker style={styles.inputField}
-            style={{ width: 200 }}
+          <DatePicker
+            style={{ width: 175 }}
             date={date}
             mode="date"
-            placeholder="select date"
+            placeholder="Select Date"
             format="YYYY-MM-DD"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
+            showIcon={false}
             customStyles={{
               dateIcon: {
                 position: 'absolute',
@@ -60,7 +65,7 @@ export const Listing = () => {
                 marginLeft: 0
               },
               dateInput: {
-                marginLeft: 36
+                marginLeft: 10
               }
               // ... You can check the source to find the other keys.
             }}
@@ -71,6 +76,7 @@ export const Listing = () => {
         <View style={styles.input}>
           <Text>Notes</Text>
           <TextInput
+            placeholder='Notes'
             style={styles.inputField}
             onChangeText={text => setNotes(text)}
             value={notes}
@@ -78,7 +84,7 @@ export const Listing = () => {
         </View>
 
         {/* Status */}
-        <View style={styles.input}>
+        <View style={styles.status}>
           <Text>Current Status</Text>
           <Text>Status</Text>
         </View>
@@ -139,19 +145,27 @@ const styles = StyleSheet.create({
   },
   buttons: {
     flex: 1,
-    paddingBottom: 35,
+    flexDirection: 'column-reverse',
+    paddingBottom: 15
   },
   input: {
-    flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: "center"
+    alignItems: "center",
+    padding: 10,
   },
   inputField: {
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    width: 150
+    width: 150,
+    textAlign: 'center'
+  },
+  status: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingTop: 150
   }
 });
 

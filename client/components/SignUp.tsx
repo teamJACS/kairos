@@ -1,35 +1,27 @@
 import React, { useState } from 'react'
-import { Picker, Text, StyleSheet, View, TextInput, Button } from 'react-native'
+import { Picker, Text, StyleSheet, View, TextInput, Button, Image } from 'react-native'
+
+const icon = require('../../assets/icon_board.png');
 
 const SignUp = () => {
-    const [currency, setCurrency] = useState('US Dollar');
-    return (
-        <View >
-            <Text > Sign Up For Sieun's Mentorship </Text>
-            <View>
-                <TextInput
-                    placeholder="Email" />
-                <TextInput
-                    secureTextEntry={true}
-                    placeholder="Password"
-                />
-                <TextInput
-                    secureTextEntry={true}
-                    placeholder="Confirm Password"
-                />
-                {/* <Picker
-                    selectedValue={currency}
-                    onValueChange={currentCurrency => setCurrency(currentCurrency)}>
-                    <Picker.Item label="USD" value="US Dollars" />
-                    <Picker.Item label="BTC" value="Bitcoin" />
-                    <Picker.Item label="TSLA" value="Tesla Share(s)" />
-                </Picker>
-                <Text>
-                    Select how you'll pay her: {currency}
-                </Text> */}
-            </View>
-        </View>
-    )
+  const [currency, setCurrency] = useState('US Dollar');
+  return (
+    <View style={{ paddingBottom: 35 }}>
+      <Text style={{ color: "skyblue", fontWeight: "bold", fontSize: 20, paddingBottom: 12 }}> Please Enter Your Email and Password </Text>
+      <View >
+        <TextInput style={{ fontSize: 15 }}
+          placeholder="Email" />
+        <TextInput style={{ fontSize: 15 }}
+          secureTextEntry={true}
+          placeholder="Password"
+        />
+        <TextInput style={{ fontSize: 15 }}
+          secureTextEntry={true}
+          placeholder="Confirm Password"
+        />
+      </View>
+    </View>
+  )
 }
 
 export default SignUp

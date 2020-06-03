@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
-import { Center } from './Center'
-import { AuthContext } from '../src/AuthProvider'
 
 const logo = require('../../assets/kairos_logo.png');
 

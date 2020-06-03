@@ -11,7 +11,7 @@ export default function SignIn() {
 
     return (
         <View style={styles.text}>
-            <Text style={{ color: "white", fontSize: 40, fontWeight: "bold" }} >Welcome User</Text>
+            <Text style={{ color: "skyblue", fontSize: 40, fontWeight: "bold" }} >Welcome User</Text>
             <Image source={logo} />
         </View>
     )

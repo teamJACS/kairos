@@ -11,7 +11,7 @@ export const Center: React.FC<CenterProps> = ({ children }) => {
             flex: 1,
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "steelblue"
+            backgroundColor: "white"
         }}
         >
             {children}

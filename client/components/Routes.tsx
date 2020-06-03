@@ -42,25 +42,26 @@ function Login({ navigation }: AuthNavProps<"Login">) {
         <Center>
             <SignIn />
             <TextInput
-                style={{ height: 40, borderColor: 'white', borderWidth: 1, width: 100, textAlign: 'center' }}
+                style={{ height: 40, borderColor: 'white', borderWidth: 1, width: 110, textAlign: 'center' }}
                 onChangeText={text => setUsername(text)}
                 value={username}
             />
+
             <TextInput
-                style={{ height: 40, borderColor: 'white', borderWidth: 1, width: 100, textAlign: 'center' }}
+                style={{ height: 40, borderColor: 'white', borderWidth: 1, width: 110, textAlign: 'center' }}
                 onChangeText={text => setPw(text)}
                 value={pw}
             />
 
             <Button
-                color="white"
+                color="dodgerblue"
                 title="Sign In"
                 onPress={() => {
                     login();
                 }}
             />
             <Button
-                color="white"
+                color="dodgerblue"
                 title="Create New User"
                 onPress={() => {
                     navigation.navigate("Register");

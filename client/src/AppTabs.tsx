@@ -50,27 +50,28 @@ function CreateReactApp() {
   );
 }
 
-export const AppTabs: React.FC<AppTabsProps> = ({ }) => {
-    const { loading, error, data } = useQuery(FIRST_QUERY)
+export const AppTabs: React.ComponentType<AppTabsProps> = ({ }) => {
+  const { loading, error, data } = useQuery(FIRST_QUERY)
 
+
+  function Application(): any {
     if (loading) return <Center><Text>Loading...</Text></Center>
-
-    function Application() {
-        return (
-            <Center>
-                <Text>Sieun from {data.user.jobs[0].company} in {data.user.jobs[0].location} says {data.user.jobs[0].notes}</Text>
-            </Center>
-        );
-    }
     if (!loading && data) {
-        console.log(data)
-        return (
-            <Tabs.Navigator>
-                <Tabs.Screen name='Home' component={Home} />
-                <Tabs.Screen name='Application' component={Application} />
-                <Tabs.Screen name='CRA' component={CreateReactApp} />
-            </Tabs.Navigator>
-        )
+      return (
+        <Center>
+          <Text>Sieun from {data.user.jobs[0].company} in {data.user.jobs[0].location} says {data.user.jobs[0].notes}</Text>
+        </Center>
+      );
     }
+    if (error) return <Center><Text>{error.message}</Text></Center>
+  }
+  console.log(data)
+  return (
+    <Tabs.Navigator>
+      <Tabs.Screen name='Home' component={Home} />
+      <Tabs.Screen name='Application' component={Application} />
+      <Tabs.Screen name='CRA' component={CreateReactApp} />
+    </Tabs.Navigator>
+  )
 
 }

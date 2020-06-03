@@ -3,11 +3,6 @@ import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import { Center } from './Center'
 import { AuthContext } from '../src/AuthProvider'
 
-<<<<<<< HEAD
-=======
-const logo = require('../../assets/logo_size.jpg');
->>>>>>> a8199caaa68fccba77406dd2d692e985951d87a8
-
 const logo = require('../../assets/kairos_logo.png');
 
 

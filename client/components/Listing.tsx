@@ -6,10 +6,10 @@ import { Header, Input, Button, Icon } from 'react-native-elements';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const Listing = () => {
-  const [title, setTitle] = React.useState('')
-  const [company, setCompany] = React.useState('')
-  const [date, setDate] = React.useState("")
-  const [notes, setNotes] = React.useState('')
+  const [title, setTitle] = useState('')
+  const [company, setCompany] = useState('')
+  const [date, setDate] = useState("")
+  const [notes, setNotes] = useState('')
 
   const saveButton = () => {
     return;

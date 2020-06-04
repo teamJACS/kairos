@@ -1,9 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AppParamList } from './AppParamList';
 import { Text, Button, View } from "react-native";
 import { Center } from "../components/Center";
-import { AuthContext } from './AuthProvider';
 import JobListView from '../components/JobListView';
 import { Listing } from '../components/Listing'
 import { useDispatch } from 'react-redux'

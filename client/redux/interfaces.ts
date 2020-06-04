@@ -1,7 +1,11 @@
 import * as types from '../redux/constants/actionTypes'
 
 export interface IAuthState {
-  user: string | null
+  auth: IState
+}
+
+export interface IState {
+  userId: string | null
 }
 
 export interface IAuthAction<T> {

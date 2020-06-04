@@ -1,8 +1,8 @@
 import * as types from '../constants/actionTypes'
-import { IAuthState, IAuthAction } from '../interfaces'
+import { IState, IAuthAction } from '../interfaces'
 
-const initialState: IAuthState = {
-  user: null
+const initialState: IState = {
+  userId: null
 }
 
 const authReducer = (state = initialState, action: IAuthAction<string>) => {
@@ -10,7 +10,7 @@ const authReducer = (state = initialState, action: IAuthAction<string>) => {
     case types.GET_USER:
       return {
         ...state,
-        user: action.payload
+        userId: action.payload
       }
     default:
       return { ...state }

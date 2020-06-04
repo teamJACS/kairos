@@ -1,4 +1,4 @@
-import { User, Job } from "../../db/models";
+import { User, Job, Status } from "../../db/models";
 
 const resolvers = {
   jobs: (user: User) => {
@@ -11,7 +11,7 @@ const resolvers = {
       ],
       order: ["dateApplied"]
     })
-  }
+  },
 }
 
 export default resolvers;

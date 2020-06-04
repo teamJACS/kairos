@@ -1,15 +1,25 @@
-import React, { useState, useEffect, useContext } from "react";
-import { AuthContext } from '../src/AuthProvider'
-import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
+import React, { useContext, useState } from "react";
+import { StyleSheet, Dimensions, Text, View, TouchableOpacity } from "react-native";
 import { AuthNavProps } from '../src/AuthParamList'
 import { Input, Button } from 'react-native-elements';
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { AUTH_USER } from "../src/queries";
+import { useLazyQuery } from "@apollo/react-hooks";
+import { AuthContext } from "../src/AuthProvider";
 
-const Login = ({ navigation, route }: AuthNavProps<"Login">) => {
-  const { user, login } = useContext(AuthContext)
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+type User = null | { username: string };
 
+const Login = ({ navigation }: AuthNavProps<"Login">) => {
+  const { setUserId } = useContext(AuthContext)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const [getUserId, { loading, error, data }] = useLazyQuery(AUTH_USER, {
+    variables: {
+      email, 
+      password
+    }
+  });
+  
   const handleChangeEmail = (email: string) => {
     setEmail(email)
   }
@@ -17,6 +27,16 @@ const Login = ({ navigation, route }: AuthNavProps<"Login">) => {
     setPassword(password)
   }
   
+  const login = () => {
+    getUserId()
+    console.log(loading, data)
+    if(!loading && data && data.auth && data.auth.id) {
+      setUserId(data.auth.id)
+      console.log(data.auth.id)
+      navigation.navigate('Landing')
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -44,9 +64,7 @@ const Login = ({ navigation, route }: AuthNavProps<"Login">) => {
           buttonStyle={{
             backgroundColor:'dodgerblue'
           }}
-          onPress={() => {
-            login();
-          }}
+          onPress={login}
         />
         <View style={styles.goBack}>
           <Text> 

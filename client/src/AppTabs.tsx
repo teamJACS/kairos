@@ -30,11 +30,12 @@ query {
 }
 `
 function Home() {
-  const { logout } = useContext(AuthContext)
+  const { setUserId } = useContext(AuthContext)
+  const logout = () => setUserId(null)
   return (
     <Center>
       <Text>Home</Text>
-      <Button title='logout' onPress={() => logout()} />
+      <Button title='logout' onPress={logout} />
     </Center>
   );
 }
@@ -65,7 +66,6 @@ export const AppTabs: React.ComponentType<AppTabsProps> = ({ }) => {
   return (
     <Tabs.Navigator>
       <Tabs.Screen name='Home' component={Home} />
-      <Tabs.Screen name='Application' component={Application} />
       <Tabs.Screen name='ListView' component={JobListView} />
       <Tabs.Screen name='CRA' component={CreateReactApp} />
     </Tabs.Navigator>

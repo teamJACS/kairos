@@ -17,6 +17,18 @@ module.exports.up = (queryInterface, DataTypes) => {
         allowNull: false,
         type: DataTypes.STRING
       },
+      createdAt: {
+        allowNull: true,
+        type: DataTypes.DATE
+      },
+      updatedAt: {
+        allowNull: true,
+        type: DataTypes.DATE
+      },
+      deletedAt: {
+        allowNull: true,
+        type: DataTypes.DATE
+      }
     },
     {
       charset: "utf8",

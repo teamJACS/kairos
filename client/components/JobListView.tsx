@@ -1,70 +1,19 @@
-import React from 'react'
-import { FlatList, SafeAreaView } from "react-native"
+import React, { useContext } from 'react'
+import { FlatList, SafeAreaView, Text, View, StyleSheet } from "react-native"
 import { ListItem, SearchBar } from 'react-native-elements';
+import  { GET_USER }  from '../src/queries'
+import { useQuery } from '@apollo/react-hooks'
+import { AuthContext } from "../src/AuthProvider";
 
 const JobListing: React.FC = () => {
-  const fakeData = [
-    {
-      id: "1",
-      company: 'FB',
-      status: 'Applied'
-    },
-    {
-      id: "2",
-      company: 'AMZN',
-      status: 'Interested'
-    },
-    {
-      id: "3",
-      company: 'AB',
-      status: 'Received an offer'
-    },
-    {
-      id: "4",
-      company: 'CaryQL',
-      status: 'Rejected'
-    },
-    {
-      id: "5",
-      company: 'FB',
-      status: 'Applied'
-    },
-    {
-      id: "6",
-      company: 'AMZN',
-      status: 'Interested'
-    },
-    {
-      id: "7",
-      company: 'AB',
-      status: 'Received an offer'
-    },
-    {
-      id: "8",
-      company: 'CaryQL',
-      status: 'Rejected'
-    },
-    {
-      id: "9",
-      company: 'FB',
-      status: 'Applied'
-    },
-    {
-      id: "10",
-      company: 'AMZN',
-      status: 'Interested'
-    },
-    {
-      id: "11",
-      company: 'AB',
-      status: 'Received an offer'
-    },
-    {
-      id: "12",
-      company: 'CaryQL',
-      status: 'Rejected'
-    },
-  ]
+  let jobs
+  const { userId } = useContext(AuthContext)
+  const { loading, error, data } = useQuery(GET_USER, {variables: {userId}})
+
+  if (!loading && data && data.user && data.user.jobs) {
+    jobs = data.user.jobs
+    console.log('jobs',jobs)
+  }
 
   const handleClickListItem = () => {
     console.log('Clicked')
@@ -89,7 +38,7 @@ const JobListing: React.FC = () => {
       <ListItem
         title={item.company}
         onPress={handleClickListItem}
-        subtitle={item.status}
+        subtitle={item.location}
         key={item.id}
         rightIcon={{  
           name:'playlist-add-check',
@@ -98,19 +47,37 @@ const JobListing: React.FC = () => {
       />  
     )
   }
+  const emptyListView = () => {
+    return (
+      <View style={styles.emptyView}>
+        <Text>Your Job Listview is Empty</Text>
+      </View>
+    )
+  }
 
-
-  return (
+  return (  
     <>
-      <SafeAreaView>
-        <FlatList 
-          ListHeaderComponent={renderHeader}
-          data={fakeData} 
-          renderItem={renderItem}
-        />
-      </SafeAreaView>
+      {!data? <Text>Loading...</Text> :(
+        <SafeAreaView>
+          <FlatList 
+            ListEmptyComponent={emptyListView}
+            ListHeaderComponent={renderHeader}
+            data={jobs} 
+            renderItem={renderItem}
+          />
+        </SafeAreaView>
+      )}
     </>
   )
+  
 }
 
 export default JobListing;
+
+const styles = StyleSheet.create({
+  emptyView: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+  },
+})

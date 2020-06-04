@@ -9,7 +9,9 @@ import { IAuthState } from '../redux/interfaces';
 const JobListing: React.FC = () => {
   let jobs
   const userId = useSelector((state: IAuthState) => state.auth.userId)
-  const { loading, error, data } = useQuery(GET_USER, { variables: { userId } })
+  const { loading, error, data, refetch } = useQuery(GET_USER, { 
+    variables: { userId }
+  })
 
   if (!loading && data && data.user && data.user.jobs) {
     jobs = data.user.jobs
@@ -17,16 +19,6 @@ const JobListing: React.FC = () => {
 
   const handleClickListItem = () => {
     console.log('Clicked')
-  }
-
-  const RIGHT_ICON_MAPPING = {
-    1: 'feedback',
-    2: 'feedback,',
-    3: 'call,',
-    4: 'file-document-edit,',
-    5: 'group,',
-    6: 'thumb-down,',
-    7: 'thumb-up,',
   }
 
   const renderHeader = () => {
@@ -38,7 +30,8 @@ const JobListing: React.FC = () => {
       <ListItem
         title={item.company}
         onPress={handleClickListItem}
-        subtitle={item.location}
+        subtitle={item.jobTitle}
+        rightSubtitle={item.location}
         key={item.id}
         rightIcon={{
           name: 'playlist-add-check',

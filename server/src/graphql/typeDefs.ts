@@ -27,6 +27,7 @@ const typeDefs = gql`
   type Query {
     user(userId: ID!): User!
     auth(email: String!, password: String!): User
+    getJob(userId: ID!, jobId: ID!): Job
   }
 
   type Mutation {

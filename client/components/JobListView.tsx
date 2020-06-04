@@ -1,13 +1,16 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { FlatList, SafeAreaView, Text, View, StyleSheet } from "react-native"
 import { ListItem, SearchBar } from 'react-native-elements';
 import { GET_USER } from '../src/queries'
 import { useQuery } from '@apollo/react-hooks'
 import { useSelector } from 'react-redux'
-import { IAuthState } from '../redux/interfaces';
+import { IAuthState, IJobIdState } from '../redux/interfaces';
+import { useDispatch } from 'react-redux'
+import { getJob } from '../redux/actions/jobActions'
 
-const JobListing: React.FC = () => {
+const JobListing: React.FC = ({ navigation }: any) => {
   let jobs
+  const dispatch = useDispatch()
   const userId = useSelector((state: IAuthState) => state.auth.userId)
   const { loading, error, data } = useQuery(GET_USER, { variables: { userId } })
 
@@ -16,7 +19,9 @@ const JobListing: React.FC = () => {
   }
 
   const handleClickListItem = () => {
-    console.log('Clicked')
+    return (
+      navigation.navigate('Add/Update')
+    )
   }
 
   const RIGHT_ICON_MAPPING = {
@@ -37,7 +42,10 @@ const JobListing: React.FC = () => {
     return (
       <ListItem
         title={item.company}
-        onPress={handleClickListItem}
+        onPress={() => {
+          dispatch(getJob(item.id))
+          handleClickListItem()
+        }}
         subtitle={item.location}
         key={item.id}
         rightIcon={{

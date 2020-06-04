@@ -4,9 +4,12 @@ import DatePicker from 'react-native-datepicker';
 import Constants from 'expo-constants';
 import { Header, Input, Button, Icon } from 'react-native-elements';
 import { Dropdown } from 'react-native-material-dropdown';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import { useSelector } from 'react-redux'
+import { IAuthState, IJobIdState } from '../redux/interfaces';
 
 export const Listing = () => {
+  const userId = useSelector((state: IAuthState) => state.auth.userId)
+  const jobId = useSelector((state: IJobIdState) => state.job.jobId)
   const [title, setTitle] = useState('')
   const [company, setCompany] = useState('')
   const [date, setDate] = useState('')

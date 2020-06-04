@@ -1,17 +1,18 @@
-import React from 'react'
-import { FlatList, SafeAreaView, Text } from "react-native"
+import React, { useContext } from 'react'
+import { FlatList, SafeAreaView, Text, View, StyleSheet } from "react-native"
 import { ListItem, SearchBar } from 'react-native-elements';
 import  { GET_USER }  from '../src/queries'
 import { useQuery } from '@apollo/react-hooks'
-
-
+import { AuthContext } from "../src/AuthProvider";
 
 const JobListing: React.FC = () => {
   let jobs
-  const { loading, error, data } = useQuery(GET_USER)
+  const { userId } = useContext(AuthContext)
+  const { loading, error, data } = useQuery(GET_USER, {variables: {userId}})
 
-  if (!loading) {
+  if (!loading && data && data.user && data.user.jobs) {
     jobs = data.user.jobs
+    console.log('jobs',jobs)
   }
 
   const handleClickListItem = () => {
@@ -46,12 +47,20 @@ const JobListing: React.FC = () => {
       />  
     )
   }
+  const emptyListView = () => {
+    return (
+      <View style={styles.emptyView}>
+        <Text>Your Job Listview is Empty</Text>
+      </View>
+    )
+  }
 
   return (  
     <>
-      {!data? <Text>aaa</Text> :(
+      {!data? <Text>Loading...</Text> :(
         <SafeAreaView>
           <FlatList 
+            ListEmptyComponent={emptyListView}
             ListHeaderComponent={renderHeader}
             data={jobs} 
             renderItem={renderItem}
@@ -64,3 +73,11 @@ const JobListing: React.FC = () => {
 }
 
 export default JobListing;
+
+const styles = StyleSheet.create({
+  emptyView: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+  },
+})

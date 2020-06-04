@@ -1,25 +1,24 @@
 import React, { useContext, useState } from "react";
-import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
+import { StyleSheet, Dimensions, Text, View, TouchableOpacity } from "react-native";
 import { AuthNavProps } from '../src/AuthParamList'
 import { Input, Button } from 'react-native-elements';
 import { AUTH_USER } from "../src/queries";
-import { useQuery } from "@apollo/react-hooks";
+import { useLazyQuery } from "@apollo/react-hooks";
+import { AuthContext } from "../src/AuthProvider";
 
 type User = null | { username: string };
 
-export const AuthContext = React.createContext<{
-  loggedId: User;
-}>({
-  loggedId: null,
-});
-
-const Login = ({ navigation, route }: AuthNavProps<"Login">) => {
-  const { loggedId } = useContext(AuthContext)
-
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-
-  // const [user, setUser] = useState(null);
+const Login = ({ navigation }: AuthNavProps<"Login">) => {
+  const { setUserId } = useContext(AuthContext)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const [getUserId, { loading, error, data }] = useLazyQuery(AUTH_USER, {
+    variables: {
+      email, 
+      password
+    }
+  });
   
   const handleChangeEmail = (email: string) => {
     setEmail(email)
@@ -29,11 +28,15 @@ const Login = ({ navigation, route }: AuthNavProps<"Login">) => {
   }
   
   const login = () => {
-    const { loading, error, data } = useQuery(AUTH_USER, {variables: {email, password}});
-    if(!loading) //update loggedId = data.auth.id;
-    if(loggedId) navigation.navigate('Landing')
+    getUserId()
+    console.log(loading, data)
+    if(!loading && data && data.auth && data.auth.id) {
+      setUserId(data.auth.id)
+      console.log(data.auth.id)
+      navigation.navigate('Landing')
     }
   }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>

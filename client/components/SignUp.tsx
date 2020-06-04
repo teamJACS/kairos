@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
-import { AuthContext } from '../src/AuthProvider'
-import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { AuthNavProps } from '../src/AuthParamList'
 import { Input, Button } from 'react-native-elements';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useMutation } from '@apollo/react-hooks'
 import{ CREATE_USER } from '../src/queries'
 
-const Signup = ({ navigation, route }: AuthNavProps<"Login">) => {
-  // const { user } = useContext(AuthContext);
+const Signup = ({ navigation }: AuthNavProps<"Login">) => {
 
   const [createUserMutation] = useMutation(CREATE_USER)
   

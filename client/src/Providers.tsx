@@ -16,9 +16,9 @@ export const Providers: React.FC<ProvidersProps> = ({ }) => {
 
   return (
     <ApolloProvider client={client}>
-      {/* <AuthProvider> */}
+      <AuthProvider>
         <Routes />
-      {/* </AuthProvider> */}
+      </AuthProvider>
     </ApolloProvider>
   );
 };

@@ -1,16 +1,12 @@
 import * as types from '../constants/actionTypes'
+import { IAuthState, IAuthAction } from '../interfaces'
 
-
-export interface IState {
-  user: string | null
-}
-
-const initialState: IState = {
+const initialState: IAuthState = {
   user: null
 }
 
-const authReducer = (state = initialState, action: any) => {
-  switch (action) {
+const authReducer = (state = initialState, action: IAuthAction<string>) => {
+  switch (action.type) {
     case types.GET_USER:
       return {
         ...state,

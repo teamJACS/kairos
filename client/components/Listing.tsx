@@ -26,7 +26,7 @@ export const Listing = () => {
   let options = [{ value: 'Interested' }, { value: 'Applied' }, { value: 'Phone Screen' }, { value: 'Take Home' }, { value: 'Onsite' }, { value: 'Rejected' }, { value: 'Offer $' }]
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: 'white' }}>
       <Text style={{ flexDirection: 'row', justifyContent: "flex-end", fontSize: 25, fontWeight: "bold", color: "dodgerblue", alignSelf: 'center' }}>Listing</Text>
       <View style={{ flex: 1, justifyContent: "center", paddingTop: 70, backgroundColor: "#fafafa" }}>
         {/* Job Title */}
@@ -84,7 +84,7 @@ export const Listing = () => {
         </View>
         <View style={{ paddingTop: 50 }}>
           <View>
-            <Text style={{ color: "dodgerblue", fontWeight: 'bold', fontSize: 18, alignSelf: 'center' }}>Current Status</Text>
+            {/* <Text style={{ color: "dodgerblue", fontWeight: 'bold', fontSize: 18, alignSelf: 'center' }}>Current Status</Text> */}
           </View>
 
           {/* Status */}

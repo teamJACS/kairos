@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     number: {
         fontSize: 50,
         paddingRight: 25,
-        paddingLeft: 54
         // marginLeft: 'auto',
         // marginRight: 'auto'
     }

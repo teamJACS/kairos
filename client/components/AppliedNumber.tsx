@@ -13,5 +13,6 @@ export const AppliedNumber = () => {
 const styles = StyleSheet.create({
     number: {
         fontSize: 50,
+        paddingRight: 25
     }
 })

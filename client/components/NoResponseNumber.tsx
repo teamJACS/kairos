@@ -13,6 +13,6 @@ export const NoResponseNumber = () => {
 const styles = StyleSheet.create({
     number: {
         fontSize: 50,
-        left: 10
+        paddingRight: 25
     }
 })

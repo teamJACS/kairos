@@ -13,6 +13,9 @@ export const InterviewNumber = () => {
 const styles = StyleSheet.create({
     number: {
         fontSize: 50,
-        left: 15
+        paddingRight: 25,
+        paddingLeft: 54
+        // marginLeft: 'auto',
+        // marginRight: 'auto'
     }
 })

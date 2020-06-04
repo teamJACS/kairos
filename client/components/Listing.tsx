@@ -3,6 +3,7 @@ import { View, TextInput, Text, StyleSheet, SafeAreaView, TouchableOpacity } fro
 import DatePicker from 'react-native-datepicker';
 import Constants from 'expo-constants';
 import { Header, Input, Button, Icon } from 'react-native-elements';
+import { Dropdown } from 'react-native-material-dropdown';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const Listing = () => {
@@ -10,6 +11,7 @@ export const Listing = () => {
   const [company, setCompany] = React.useState('')
   const [date, setDate] = React.useState("")
   const [notes, setNotes] = React.useState('')
+  const [status, setStatus] = React.useState('status')
 
   const saveButton = () => {
     return;
@@ -21,9 +23,11 @@ export const Listing = () => {
     return;
   }
 
+  let options = [{ value: 'Interested' }, { value: 'Applied' }, { value: 'Phone Screen' }, { value: 'Take Home' }, { value: 'Onsite' }, { value: 'Rejected' }, { value: 'Offer $' }]
+
   return (
     <SafeAreaView>
-      <Text style={{ flexDirection: 'row', justifyContent: "flex-end", paddingLeft: 47, paddingTop: 45, fontSize: 25, fontWeight: "bold", color: "dodgerblue" }}>Create/Edit a Listing</Text>
+      <Text style={{ flexDirection: 'row', justifyContent: "flex-end", fontSize: 25, fontWeight: "bold", color: "dodgerblue", alignSelf: 'center' }}>Listing</Text>
       <View style={{ flex: 1, justifyContent: "center", paddingTop: 70, backgroundColor: "#fafafa" }}>
         {/* Job Title */}
         <View style={styles.input}>
@@ -78,12 +82,21 @@ export const Listing = () => {
             value={notes}
           />
         </View>
+        <View style={{ paddingTop: 50 }}>
+          <View>
+            <Text style={{ color: "dodgerblue", fontWeight: 'bold', fontSize: 18, alignSelf: 'center' }}>Current Status</Text>
+          </View>
 
-        {/* Status */}
-        <View style={styles.status}>
-          <Text style={{ color: "dodgerblue", fontWeight: 'bold', fontSize: 18 }}>Current Status:</Text>
-          <Text style={{ color: "dodgerblue", fontWeight: 'bold', fontSize: 18 }}>Status</Text>
+          {/* Status */}
+          <View style={styles.status}>
+            <Dropdown
+              label='Status'
+              data={options}
+              style={{ width: 50 }}
+            />
+          </View>
         </View>
+
 
         {/* Buttons */}
         <View style={styles.buttons}>
@@ -105,7 +118,7 @@ export const Listing = () => {
 
             {/* Save Button */}
             <Button
-              title='Save'
+              title='Update'
               type="outline"
               raised={true}
               titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
@@ -157,7 +170,7 @@ const styles = StyleSheet.create({
   buttons: {
     flex: 1,
     flexDirection: 'column-reverse',
-    paddingBottom: 15,
+    paddingBottom: 40,
     marginLeft: 12,
     marginRight: 12
   },
@@ -175,10 +188,10 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   status: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingTop: 110
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    marginLeft: 15,
+    marginRight: 15
   }
 });
 

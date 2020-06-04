@@ -1,5 +1,4 @@
 import React from "react";
-import { AuthProvider } from "./AuthProvider";
 import { Routes } from "../components/Routes";
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from '@apollo/react-hooks'
@@ -17,9 +16,7 @@ export const Providers: React.FC<ProvidersProps> = ({ }) => {
   return (
     <Provider store={store}>
       <ApolloProvider client={client}>
-        <AuthProvider>
-          <Routes />
-        </AuthProvider>
+        <Routes />
       </ApolloProvider>
     </Provider>
   );

@@ -5,8 +5,6 @@ import { View } from "react-native";
 import { Center } from "../components/Center";
 import JobListView from '../components/JobListView';
 import { Listing } from '../components/Listing'
-import { useDispatch } from 'react-redux'
-import { setUserId } from '../redux/actions/actions';
 import { HomePage } from '../components/HomePage';
 
 interface AppTabsProps {

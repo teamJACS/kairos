@@ -1,5 +1,3 @@
-import * as types from '../redux/constants/actionTypes'
-
 export interface IAuthState {
   auth: IState
 }
@@ -8,7 +6,15 @@ export interface IState {
   userId: string | null
 }
 
-export interface IAuthAction<T> {
-  type: typeof types.GET_USER
-  payload: T
+export interface IAction<TType, TPay> {
+  type: TType
+  payload?: TPay
+}
+
+export interface IJobState {
+  title: string | null
+  company: string | null
+  date: string | null
+  notes: string | null
+  status: string | null
 }

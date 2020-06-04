@@ -5,7 +5,7 @@ import { Input, Button } from 'react-native-elements';
 import { AUTH_USER } from "../src/queries";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { useDispatch } from 'react-redux'
-import { setUserId } from '../redux/actions/actions'
+import { setUserId } from '../redux/actions/authActions'
 
 const Login = ({ navigation }: AuthNavProps<"Login">) => {
   const dispatch = useDispatch()

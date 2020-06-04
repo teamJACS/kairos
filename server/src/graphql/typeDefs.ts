@@ -17,6 +17,7 @@ const typeDefs = gql`
   type Job {
     id: ID!
     location: String
+    jobTitle: String
     company: String
     notes: String
     statusId: String
@@ -30,6 +31,15 @@ const typeDefs = gql`
 
   type Mutation {
     createUser(email: String!, password: String!): User!
+    createJob(
+      userId: String, 
+      statusId: String, 
+      company: String,
+      location: String,
+      notes: String,
+      jobTitle: String,
+      dateApplied: String 
+    ): Job
   }
 `
 

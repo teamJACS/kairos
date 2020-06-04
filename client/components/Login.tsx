@@ -4,35 +4,32 @@ import { AuthNavProps } from '../src/AuthParamList'
 import { Input, Button } from 'react-native-elements';
 import { AUTH_USER } from "../src/queries";
 import { useLazyQuery } from "@apollo/react-hooks";
-import { AuthContext } from "../src/AuthProvider";
-
-type User = null | { username: string };
+import { useDispatch } from 'react-redux'
+import { setUserId } from '../redux/actions/actions'
 
 const Login = ({ navigation }: AuthNavProps<"Login">) => {
-  const { setUserId } = useContext(AuthContext)
+  const dispatch = useDispatch()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+
   const [getUserId, { loading, error, data }] = useLazyQuery(AUTH_USER, {
     variables: {
-      email, 
+      email,
       password
     }
   });
-  
+
   const handleChangeEmail = (email: string) => {
     setEmail(email)
   }
   const handleChangePassword = (password: string) => {
     setPassword(password)
   }
-  
   const login = () => {
     getUserId()
-    console.log(loading, data)
-    if(!loading && data && data.auth && data.auth.id) {
-      setUserId(data.auth.id)
-      console.log(data.auth.id)
+    // console.log(loading, data)
+    if (!loading && data && data.auth && data.auth.id) {
+      dispatch(setUserId(data.auth.id))
       navigation.navigate('Landing')
     }
   }
@@ -44,12 +41,12 @@ const Login = ({ navigation }: AuthNavProps<"Login">) => {
       </View>
 
       <View style={styles.footer}>
-        <Input 
+        <Input
           placeholder="email@address.com"
           leftIcon={{ type: 'material', name: 'email' }}
           onChangeText={(email) => handleChangeEmail(email)}
         />
-        <Input 
+        <Input
           placeholder="Password"
           leftIcon={{ type: 'material', name: 'lock' }}
           secureTextEntry
@@ -62,12 +59,12 @@ const Login = ({ navigation }: AuthNavProps<"Login">) => {
           style={styles.button}
           title="Log In"
           buttonStyle={{
-            backgroundColor:'dodgerblue'
+            backgroundColor: 'dodgerblue'
           }}
           onPress={login}
         />
         <View style={styles.goBack}>
-          <Text> 
+          <Text>
             Don't have an account?
           </Text>
           <TouchableOpacity
@@ -82,12 +79,12 @@ const Login = ({ navigation }: AuthNavProps<"Login">) => {
   );
 }
 
-const {height} = Dimensions.get("screen");
+const { height } = Dimensions.get("screen");
 const height_logo = height * 0.28;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, 
+    flex: 1,
     backgroundColor: '#b6e1f6'
   },
   header: {
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'grey',
-    marginTop:5
+    marginTop: 5
   },
   button: {
     marginTop: 10,

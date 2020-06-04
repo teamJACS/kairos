@@ -12,7 +12,6 @@ const JobListing: React.FC = () => {
 
   if (!loading && data && data.user && data.user.jobs) {
     jobs = data.user.jobs
-    console.log('jobs',jobs)
   }
 
   const handleClickListItem = () => {

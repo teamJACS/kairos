@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { AuthNavProps } from '../src/AuthParamList'
 import { Input, Button } from 'react-native-elements';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useMutation } from '@apollo/react-hooks'
 import{ CREATE_USER } from '../src/queries'
+import { AuthContext } from "../src/AuthProvider";
 
 const Signup = ({ navigation }: AuthNavProps<"Login">) => {
-
-  const [createUserMutation] = useMutation(CREATE_USER)
+  const { setUserId } = useContext(AuthContext)
+  const [createUserMutation, secondParam] = useMutation(CREATE_USER)
   
   const [email, setEmail] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
@@ -24,17 +25,18 @@ const Signup = ({ navigation }: AuthNavProps<"Login">) => {
   const handleChangeConfirmPassword = (confirmPassword: string) => {
     setConfirmPassword(confirmPassword)
   }
-  const handlePressSignUp = () => {
+  const handlePressSignUp = async () => {
     if(password !== confirmPassword) {
       setErrorMessage('Try Again!')
     } else {
       setErrorMessage('')
-      createUserMutation({
+      const saveUserId = await createUserMutation({
         variables: {
           email,
           password
         }
       })
+      if (saveUserId) setUserId(saveUserId.data.createUser.id)
     }
   }
   

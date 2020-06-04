@@ -1,18 +1,20 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { AuthNavProps } from '../src/AuthParamList'
 import { Input, Button } from 'react-native-elements';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_USER } from '../src/queries'
-import { AuthContext } from "../src/AuthProvider";
+import { useDispatch } from 'react-redux'
+import { setUserId } from "../redux/actions/actions";
 
 const Signup = ({ navigation }: AuthNavProps<"Login">) => {
-  const { setUserId } = useContext(AuthContext)
-  const [errorMessage, setErrorMessage] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [confirmPassword, setConfirmPassword] = React.useState('');
+  const dispatch = useDispatch()
+
+  const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const [createUserMutation] = useMutation(CREATE_USER, {
     onError(err) {
@@ -42,7 +44,7 @@ const Signup = ({ navigation }: AuthNavProps<"Login">) => {
           password
         }
       })
-      if (saveUserId) setUserId(saveUserId.data.createUser.id)
+      if (saveUserId) dispatch(setUserId(saveUserId.data.createUser.id))
     }
   }
 

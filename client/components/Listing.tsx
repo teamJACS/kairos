@@ -127,7 +127,7 @@ const Listing = ({ navigation } : any) => {
         </View>
         <View style={{ paddingTop: 50 }}>
           <View>
-            <Text style={{ color: "dodgerblue", fontWeight: 'bold', fontSize: 18, alignSelf: 'center' }}>Current Status</Text>
+            {/* <Text style={{ color: "dodgerblue", fontWeight: 'bold', fontSize: 18, alignSelf: 'center' }}>Current Status</Text> */}
           </View>
 
           <View style={styles.status}>

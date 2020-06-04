@@ -1,29 +1,50 @@
 import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import Constants from 'expo-constants';
-import { Header, Input, Button, Icon } from 'react-native-elements';
+import { Input, Button} from 'react-native-elements';
 import { Dropdown } from 'react-native-material-dropdown';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import { CREATE_JOB } from '../src/queries'
+import { useMutation } from '@apollo/react-hooks'
+import RIGHT_ICON_MAPPING from '../src/statusIconMap';
 
 export const Listing = () => {
   const [title, setTitle] = React.useState('')
   const [company, setCompany] = React.useState('')
   const [date, setDate] = React.useState("")
   const [notes, setNotes] = React.useState('')
-  const [status, setStatus] = React.useState('status')
+  const [statusText, setStatus] = React.useState('')
+  // const userId = 
+  const [createJobMutation] = useMutation(CREATE_JOB)
 
-  const saveButton = () => {
-    return;
-  }
-  const createButton = () => {
-    return;
-  }
-  const deleteButton = () => {
+  const handlePressCreateButton = async () => {
+    if(company === '' || title === '' || statusText === '') {
+    } else {
+      const statusId = RIGHT_ICON_MAPPING[statusText]
+      await createJobMutation({
+        variables: {
+          title,
+          company,
+          date,
+          notes,
+          statusId,
+          userId
+        }
+      })
+    }
+    //redirect to listview
     return;
   }
 
-  let options = [{ value: 'Interested' }, { value: 'Applied' }, { value: 'Phone Screen' }, { value: 'Take Home' }, { value: 'Onsite' }, { value: 'Rejected' }, { value: 'Offer $' }]
+  let options = [
+    { value: 'Interested' }, 
+    { value: 'Applied' }, 
+    { value: 'Phone Screen' }, 
+    { value: 'Take Home' }, 
+    { value: 'Onsite' }, 
+    { value: 'Rejected' }, 
+    { value: 'Offer $' }
+  ]
 
   return (
     <SafeAreaView>
@@ -98,49 +119,37 @@ export const Listing = () => {
           </View>
         </View>
 
-
-        {/* Buttons */}
         <View style={styles.buttons}>
           <View style={styles.fixToText}>
-
-            {/* Create Button */}
-            <Button
-              title='Create'
-              type="outline"
-              raised={true}
-              titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
-              containerStyle={{ borderWidth: 1 }}
-              buttonStyle={{ backgroundColor: "#99ccff", borderRadius: 10 }}
-
-              // style={{ backgroundColor: "#99ccff", padding: 10, borderRadius: 10 }}
-              onPress={() => createButton()}
-            >
-            </Button>
-
-            {/* Save Button */}
-            <Button
-              title='Update'
-              type="outline"
-              raised={true}
-              titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
-              containerStyle={{ borderWidth: 1 }}
-              buttonStyle={{ backgroundColor: "#43F45B", borderRadius: 10, }}
-              // style={{ backgroundColor: "#99ccff", padding: 10, borderRadius: 10 }}
-              onPress={() => createButton()}
-            >
-            </Button>
-
-            {/* Delete Button */}
-            <Button
+            {/* <Button
+            style={ {marginRight: 40}}
               title="Delete"
-              type="outline"
+              type="clear"
               raised={true}
               titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
-              containerStyle={{ borderWidth: 1 }}
               buttonStyle={{ backgroundColor: "#ff7676", borderRadius: 10 }}
-              onPress={() => deleteButton()}
-            >
-            </Button>
+              onPress={deleteButton}
+            /> */}
+            <Button
+              style={ {marginRight: 20}}
+              title='Create'
+              type="clear"
+              raised={true}
+              titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
+              buttonStyle={{ backgroundColor: "#99ccff", borderRadius: 10 }}
+              onPress={handlePressCreateButton}
+            />
+
+            {/* <Button
+              title='Update'
+              type="clear"
+              raised={true}
+              titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
+              // containerStyle={{ borderWidth: 1 }}
+              buttonStyle={{ backgroundColor: "#43F45B", borderRadius: 10, }}
+              onPress={saveButton}
+            /> */}
+
           </View>
         </View>
       </View>
@@ -161,7 +170,7 @@ const styles = StyleSheet.create({
   },
   fixToText: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
   },
   separator: {
     marginVertical: 8,
@@ -172,8 +181,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column-reverse',
     paddingBottom: 40,
-    marginLeft: 12,
-    marginRight: 12
   },
   input: {
     flexDirection: "row",

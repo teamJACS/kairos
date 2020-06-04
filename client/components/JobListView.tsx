@@ -18,16 +18,6 @@ const JobListing: React.FC = () => {
     console.log('Clicked')
   }
 
-  const RIGHT_ICON_MAPPING = {
-    1: 'feedback',
-    2: 'feedback,',
-    3: 'call,',
-    4: 'file-document-edit,',
-    5: 'group,',
-    6: 'thumb-down,',
-    7: 'thumb-up,',
-  }
-
   const renderHeader = () => {
     return <SearchBar placeholder='Search Here...'
       lightTheme round editable />

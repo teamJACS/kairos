@@ -1,14 +1,15 @@
 import React, { useContext } from 'react'
 import { FlatList, SafeAreaView, Text, View, StyleSheet } from "react-native"
 import { ListItem, SearchBar } from 'react-native-elements';
-import  { GET_USER }  from '../src/queries'
+import { GET_USER } from '../src/queries'
 import { useQuery } from '@apollo/react-hooks'
-import { AuthContext } from "../src/AuthProvider";
+import { useSelector } from 'react-redux'
+import { IAuthState } from '../redux/interfaces';
 
 const JobListing: React.FC = () => {
   let jobs
-  const { userId } = useContext(AuthContext)
-  const { loading, error, data } = useQuery(GET_USER, {variables: {userId}})
+  const userId = useSelector((state: IAuthState) => state.auth.userId)
+  const { loading, error, data } = useQuery(GET_USER, { variables: { userId } })
 
   if (!loading && data && data.user && data.user.jobs) {
     jobs = data.user.jobs
@@ -32,18 +33,19 @@ const JobListing: React.FC = () => {
     return <SearchBar placeholder='Search Here...'
       lightTheme round editable />
   }
-  const renderItem = ({item}: any)  => {
+  const renderItem = ({ item }: any) => {
     return (
       <ListItem
         title={item.company}
         onPress={handleClickListItem}
         subtitle={item.location}
         key={item.id}
-        rightIcon={{  
-          name:'playlist-add-check',
-          type:'material',
-          color:'#517fa4'}}
-      />  
+        rightIcon={{
+          name: 'playlist-add-check',
+          type: 'material',
+          color: '#517fa4'
+        }}
+      />
     )
   }
   const emptyListView = () => {
@@ -54,29 +56,29 @@ const JobListing: React.FC = () => {
     )
   }
 
-  return (  
+  return (
     <>
-      {!data? <Text>Loading...</Text> :(
+      {!data ? <Text>Loading...</Text> : (
         <SafeAreaView>
-          <FlatList 
+          <FlatList
             ListEmptyComponent={emptyListView}
             ListHeaderComponent={renderHeader}
-            data={jobs} 
+            data={jobs}
             renderItem={renderItem}
           />
         </SafeAreaView>
       )}
     </>
   )
-  
+
 }
 
 export default JobListing;
 
 const styles = StyleSheet.create({
   emptyView: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 })

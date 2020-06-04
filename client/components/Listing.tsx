@@ -3,13 +3,15 @@ import { View, TextInput, Text, StyleSheet, SafeAreaView, TouchableOpacity } fro
 import DatePicker from 'react-native-datepicker';
 import Constants from 'expo-constants';
 import { Header, Input, Button, Icon } from 'react-native-elements';
+import { Dropdown } from 'react-native-material-dropdown';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const Listing = () => {
-  const [title, setTitle] = React.useState('')
-  const [company, setCompany] = React.useState('')
-  const [date, setDate] = React.useState("")
-  const [notes, setNotes] = React.useState('')
+  const [title, setTitle] = useState('')
+  const [company, setCompany] = useState('')
+  const [date, setDate] = useState('')
+  const [notes, setNotes] = useState('')
+  const [status, setStatus] = useState('status')
 
   const saveButton = () => {
     return;
@@ -21,10 +23,12 @@ export const Listing = () => {
     return;
   }
 
+  let options = [{ value: 'Interested' }, { value: 'Applied' }, { value: 'Phone Screen' }, { value: 'Take Home' }, { value: 'Onsite' }, { value: 'Rejected' }, { value: 'Offer $' }]
+
   return (
     <SafeAreaView>
-      <Text style={{ flexDirection: 'row', justifyContent: "flex-end", paddingLeft: 47, paddingTop: 45, fontSize: 20, fontWeight: "bold", color: "dodgerblue" }}>Create/Edit a Listing</Text>
-      <View style={{ flex: 1, justifyContent: "center", paddingTop: 70 }}>
+      <Text style={{ flexDirection: 'row', justifyContent: "flex-end", fontSize: 25, fontWeight: "bold", color: "dodgerblue", alignSelf: 'center' }}>Listing</Text>
+      <View style={{ flex: 1, justifyContent: "center", paddingTop: 70, backgroundColor: "#fafafa" }}>
         {/* Job Title */}
         <View style={styles.input}>
           {/* <Text>Job Title</Text> */}
@@ -78,12 +82,22 @@ export const Listing = () => {
             value={notes}
           />
         </View>
+        <View style={{ paddingTop: 50 }}>
+          <View>
+            <Text style={{ color: "dodgerblue", fontWeight: 'bold', fontSize: 18, alignSelf: 'center' }}>Current Status</Text>
+          </View>
 
-        {/* Status */}
-        <View style={styles.status}>
-          <Text style={{ color: "dodgerblue", fontWeight: 'bold', fontSize: 18 }}>Current Status:</Text>
-          <Text style={{ color: "dodgerblue", fontWeight: 'bold', fontSize: 18 }}>Status</Text>
+          {/* Status */}
+          <View style={styles.status}>
+            <Dropdown
+              label='Status'
+              data={options}
+              style={{ width: 50 }}
+              onChangeText={(el) => setStatus(el)}
+            />
+          </View>
         </View>
+
 
         {/* Buttons */}
         <View style={styles.buttons}>
@@ -94,7 +108,8 @@ export const Listing = () => {
               title='Create'
               type="outline"
               raised={true}
-              titleStyle={{ color: "white" }}
+              titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
+              containerStyle={{ borderWidth: 1 }}
               buttonStyle={{ backgroundColor: "#99ccff", borderRadius: 10 }}
 
               // style={{ backgroundColor: "#99ccff", padding: 10, borderRadius: 10 }}
@@ -104,11 +119,12 @@ export const Listing = () => {
 
             {/* Save Button */}
             <Button
-              title='Save'
+              title='Update'
               type="outline"
               raised={true}
-              titleStyle={{ color: "white" }}
-              buttonStyle={{ backgroundColor: "#99ffbb", borderRadius: 10, }}
+              titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
+              containerStyle={{ borderWidth: 1 }}
+              buttonStyle={{ backgroundColor: "#43F45B", borderRadius: 10, }}
               // style={{ backgroundColor: "#99ccff", padding: 10, borderRadius: 10 }}
               onPress={() => createButton()}
             >
@@ -119,7 +135,8 @@ export const Listing = () => {
               title="Delete"
               type="outline"
               raised={true}
-              titleStyle={{ color: "white" }}
+              titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
+              containerStyle={{ borderWidth: 1 }}
               buttonStyle={{ backgroundColor: "#ff7676", borderRadius: 10 }}
               onPress={() => deleteButton()}
             >
@@ -154,9 +171,9 @@ const styles = StyleSheet.create({
   buttons: {
     flex: 1,
     flexDirection: 'column-reverse',
-    paddingBottom: 10,
-    marginLeft: 5,
-    marginRight: 5
+    paddingBottom: 40,
+    marginLeft: 12,
+    marginRight: 12
   },
   input: {
     flexDirection: "row",
@@ -172,10 +189,10 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   status: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingTop: 110
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    marginLeft: 15,
+    marginRight: 15
   }
 });
 

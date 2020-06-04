@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-// import { AuthContext } from '../src/AuthProvider'
 import { AuthParamList } from '../src/AuthParamList'
 import { AppTabs } from '../src/AppTabs'
 import SignUp from './SignUp'
@@ -15,9 +14,7 @@ interface RoutesProps { }
 const Stack = createStackNavigator<AuthParamList>()
 
 export const Routes: React.FC<RoutesProps> = ({ }) => {
-  // const { userId } = useContext(AuthContext)
   const userId = useSelector((state: IAuthState) => state.auth.userId)
-  // const userId = userIdData?.auth?.id
   console.log('userId: --->', userId)
   return (
     <NavigationContainer>

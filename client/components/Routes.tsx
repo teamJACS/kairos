@@ -1,20 +1,24 @@
 import React, { useContext } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { AuthContext } from '../src/AuthProvider'
+// import { AuthContext } from '../src/AuthProvider'
 import { AuthParamList } from '../src/AuthParamList'
 import { AppTabs } from '../src/AppTabs'
 import SignUp from './SignUp'
 import Login from './Login'
 import Landing from './Landing'
+import { IAuthState } from '../redux/interfaces'
+import { useSelector } from 'react-redux'
 
 interface RoutesProps { }
 
 const Stack = createStackNavigator<AuthParamList>()
 
 export const Routes: React.FC<RoutesProps> = ({ }) => {
-  const { userId } = useContext(AuthContext)
-
+  // const { userId } = useContext(AuthContext)
+  const userId = useSelector((state: IAuthState) => state.auth.userId)
+  // const userId = userIdData?.auth?.id
+  console.log('userId: --->', userId)
   return (
     <NavigationContainer>
       {userId ? (

@@ -93,6 +93,7 @@ export const Listing = () => {
               label='Status'
               data={options}
               style={{ width: 50 }}
+              onChangeText={(el) => setStatus(el)}
             />
           </View>
         </View>

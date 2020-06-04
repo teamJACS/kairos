@@ -33,7 +33,6 @@ export class User extends Model<User> {
   jobs!: Job[];
 }
 
-
 //status table
 @Table({
   tableName: "status",
@@ -60,7 +59,6 @@ export class Status extends Model<Status> {
   @HasMany(() => Job)
   jobs!: Job[];
 }
-
 
 //jobs table
 @Table({
@@ -99,25 +97,25 @@ export class Job extends Model<Job> {
   company!: string;
 
   @Column({
-    allowNull: false,
+    allowNull: true,
     type: DataType.STRING,
   })
   location!: string;
 
   @Column({
-    allowNull: false,
+    allowNull: true,
     type: DataType.STRING,
   })
   notes!: string;
 
   @Column({
-    allowNull: false,
+    allowNull: true,
     type: DataType.STRING,
   })
   jobTitle!: string;
 
   @Column({
-    allowNull: false,
+    allowNull: true,
     type: DataType.DATE,
   })
   dateApplied!: string;

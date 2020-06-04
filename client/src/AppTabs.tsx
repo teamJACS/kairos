@@ -4,11 +4,10 @@ import { AppParamList } from './AppParamList';
 import { View } from "react-native";
 import { Center } from "../components/Center";
 import JobListView from '../components/JobListView';
-
 import { Listing } from '../components/Listing'
+import { useDispatch } from 'react-redux'
+import { setUserId } from '../redux/actions/actions';
 import { HomePage } from '../components/HomePage';
-import gql from 'graphql-tag';
-
 
 interface AppTabsProps {
 
@@ -16,17 +15,6 @@ interface AppTabsProps {
 
 const Tabs = createBottomTabNavigator<AppParamList>();
 
-const FIRST_QUERY = gql`
-query {
-  user {
- 		jobs {
-      company
-      location
-      notes
-    }
-  }
-}
-`
 function Home() {
   return (
     <View>

@@ -1,14 +1,16 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
 import { Header, Card, Button } from 'react-native-elements';
-import { AuthContext } from '../src/AuthProvider';
 import { AppliedNumber } from './AppliedNumber';
 import { InterviewNumber } from './InterviewNumber';
 import { NoResponseNumber } from './NoResponseNumber';
+import { useDispatch } from 'react-redux';
+import { setUserId } from '../redux/actions/actions';
+
 
 export const HomePage = () => {
-  const { setUserId } = useContext(AuthContext)
-  const logout = () => setUserId(null)
+  const dispatch = useDispatch()
+  const logout = () => dispatch(setUserId(null))
 
   return (
     <SafeAreaView>

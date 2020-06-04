@@ -8,7 +8,8 @@ query user($userId: ID!){
       id
       company
       location
-      notes
+      notes,
+      jobTitle
   }
   }
 }

@@ -7,18 +7,11 @@ import { Dropdown } from 'react-native-material-dropdown';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const Listing = () => {
-<<<<<<< HEAD
   const [title, setTitle] = useState('')
   const [company, setCompany] = useState('')
-  const [date, setDate] = useState("")
+  const [date, setDate] = useState('')
   const [notes, setNotes] = useState('')
-=======
-  const [title, setTitle] = React.useState('')
-  const [company, setCompany] = React.useState('')
-  const [date, setDate] = React.useState("")
-  const [notes, setNotes] = React.useState('')
-  const [status, setStatus] = React.useState('status')
->>>>>>> 1885684a1ba03e61784e70668eafc55ac813db6b
+  const [status, setStatus] = useState('status')
 
   const saveButton = () => {
     return;

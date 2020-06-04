@@ -1,15 +1,26 @@
-import React, { useState, useEffect, useContext } from "react";
-import { AuthContext } from '../src/AuthProvider'
+import React, { useContext, useState } from "react";
 import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
 import { AuthNavProps } from '../src/AuthParamList'
 import { Input, Button } from 'react-native-elements';
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { AUTH_USER } from "../src/queries";
+import { useQuery } from "@apollo/react-hooks";
+
+type User = null | { username: string };
+
+export const AuthContext = React.createContext<{
+  loggedId: User;
+}>({
+  loggedId: null,
+});
 
 const Login = ({ navigation, route }: AuthNavProps<"Login">) => {
-  const { user, login } = useContext(AuthContext)
+  const { loggedId } = useContext(AuthContext)
+
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  // const [user, setUser] = useState(null);
+  
   const handleChangeEmail = (email: string) => {
     setEmail(email)
   }
@@ -17,6 +28,12 @@ const Login = ({ navigation, route }: AuthNavProps<"Login">) => {
     setPassword(password)
   }
   
+  const login = () => {
+    const { loading, error, data } = useQuery(AUTH_USER, {variables: {email, password}});
+    if(!loading) //update loggedId = data.auth.id;
+    if(loggedId) navigation.navigate('Landing')
+    }
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -44,9 +61,7 @@ const Login = ({ navigation, route }: AuthNavProps<"Login">) => {
           buttonStyle={{
             backgroundColor:'dodgerblue'
           }}
-          onPress={() => {
-            login();
-          }}
+          onPress={login}
         />
         <View style={styles.goBack}>
           <Text> 

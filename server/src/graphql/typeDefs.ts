@@ -4,12 +4,14 @@ import { gql } from 'apollo-server';
 const typeDefs = gql`
   type User {
     id: ID!
-    jobs: [Job]!
+    email: String
+    password: String
+    jobs: [Job]
   }
 
   type Status {
     id: ID!
-    status: String
+    name: String
   }
 
   type Job {
@@ -17,12 +19,17 @@ const typeDefs = gql`
     location: String
     company: String
     notes: String
-    status: Status
+    statusId: String
     dateApplied: String
   }
 
   type Query {
-    user: User! 
+    user(userId: ID!): User!
+    auth(email: String!, password: String!): User
+  }
+
+  type Mutation {
+    createUser(email: String!, password: String!): User!
   }
 `
 

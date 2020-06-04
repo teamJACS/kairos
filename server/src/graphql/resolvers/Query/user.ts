@@ -1,9 +1,9 @@
 import { User } from "../../../db/models";
 
-const usersResolver = () => {
+const usersResolver = (context: any, {userId}: {userId: string}) => {
   return User.findOne({
     where: {
-        id: 1,
+      id: userId,
     },
 });
 }

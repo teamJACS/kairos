@@ -4,10 +4,16 @@ import { StyleSheet, View, Text, Dimensions, Image } from "react-native";
 import { AuthNavProps } from '../src/AuthParamList'
 import { Input, Button } from 'react-native-elements';
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useMutation } from '@apollo/react-hooks'
+import{ CREATE_USER } from '../src/queries'
 
 const Signup = ({ navigation, route }: AuthNavProps<"Login">) => {
   // const { user } = useContext(AuthContext);
+
+  const [createUserMutation] = useMutation(CREATE_USER)
+  
   const [email, setEmail] = React.useState('');
+  const [errorMessage, setErrorMessage] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
 
@@ -16,6 +22,22 @@ const Signup = ({ navigation, route }: AuthNavProps<"Login">) => {
   }
   const handleChangePassword = (password: string) => {
     setPassword(password)
+  }
+  const handleChangeConfirmPassword = (confirmPassword: string) => {
+    setConfirmPassword(confirmPassword)
+  }
+  const handlePressSignUp = () => {
+    if(password !== confirmPassword) {
+      setErrorMessage('Try Again!')
+    } else {
+      setErrorMessage('')
+      createUserMutation({
+        variables: {
+          email,
+          password
+        }
+      })
+    }
   }
   
   return (
@@ -41,8 +63,8 @@ const Signup = ({ navigation, route }: AuthNavProps<"Login">) => {
           leftIcon={{ type: 'material', name: 'lock' }}
           secureTextEntry
           errorStyle={{ color: 'red' }}
-          errorMessage='ENTER A VALID ERROR HERE'
-          onChangeText={(pw) => handleChangePassword(pw)}
+          errorMessage={errorMessage}
+          onChangeText={(pw) => handleChangeConfirmPassword(pw)}
         />
         <Button
           style={styles.button}
@@ -50,6 +72,7 @@ const Signup = ({ navigation, route }: AuthNavProps<"Login">) => {
           buttonStyle={{
             backgroundColor:'dodgerblue'
           }}
+          onPress={handlePressSignUp}
         />
         <View style={styles.goBack}>
           <Text> 

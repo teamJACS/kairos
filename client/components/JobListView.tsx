@@ -1,70 +1,18 @@
 import React from 'react'
-import { FlatList, SafeAreaView } from "react-native"
+import { FlatList, SafeAreaView, Text } from "react-native"
 import { ListItem, SearchBar } from 'react-native-elements';
+import  { GET_USER }  from '../src/queries'
+import { useQuery } from '@apollo/react-hooks'
+
+
 
 const JobListing: React.FC = () => {
-  const fakeData = [
-    {
-      id: "1",
-      company: 'FB',
-      status: 'Applied'
-    },
-    {
-      id: "2",
-      company: 'AMZN',
-      status: 'Interested'
-    },
-    {
-      id: "3",
-      company: 'AB',
-      status: 'Received an offer'
-    },
-    {
-      id: "4",
-      company: 'CaryQL',
-      status: 'Rejected'
-    },
-    {
-      id: "5",
-      company: 'FB',
-      status: 'Applied'
-    },
-    {
-      id: "6",
-      company: 'AMZN',
-      status: 'Interested'
-    },
-    {
-      id: "7",
-      company: 'AB',
-      status: 'Received an offer'
-    },
-    {
-      id: "8",
-      company: 'CaryQL',
-      status: 'Rejected'
-    },
-    {
-      id: "9",
-      company: 'FB',
-      status: 'Applied'
-    },
-    {
-      id: "10",
-      company: 'AMZN',
-      status: 'Interested'
-    },
-    {
-      id: "11",
-      company: 'AB',
-      status: 'Received an offer'
-    },
-    {
-      id: "12",
-      company: 'CaryQL',
-      status: 'Rejected'
-    },
-  ]
+  let jobs
+  const { loading, error, data } = useQuery(GET_USER)
+
+  if (!loading) {
+    jobs = data.user.jobs
+  }
 
   const handleClickListItem = () => {
     console.log('Clicked')
@@ -89,7 +37,7 @@ const JobListing: React.FC = () => {
       <ListItem
         title={item.company}
         onPress={handleClickListItem}
-        subtitle={item.status}
+        subtitle={item.location}
         key={item.id}
         rightIcon={{  
           name:'playlist-add-check',
@@ -99,18 +47,20 @@ const JobListing: React.FC = () => {
     )
   }
 
-
-  return (
+  return (  
     <>
-      <SafeAreaView>
-        <FlatList 
-          ListHeaderComponent={renderHeader}
-          data={fakeData} 
-          renderItem={renderItem}
-        />
-      </SafeAreaView>
+      {!data? <Text>aaa</Text> :(
+        <SafeAreaView>
+          <FlatList 
+            ListHeaderComponent={renderHeader}
+            data={jobs} 
+            renderItem={renderItem}
+          />
+        </SafeAreaView>
+      )}
     </>
   )
+  
 }
 
 export default JobListing;

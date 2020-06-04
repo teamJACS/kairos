@@ -27,9 +27,14 @@ const Login = ({ navigation }: AuthNavProps<"Login">) => {
   }
   const login = () => {
     getUserId()
+<<<<<<< HEAD
     // console.log(loading, data)
     if (!loading && data && data.auth && data.auth.id) {
       dispatch(setUserId(data.auth.id))
+=======
+    if(!loading && data && data.auth && data.auth.id) {
+      setUserId(data.auth.id)
+>>>>>>> 9b026cce855f794371c121b0c18e926ab83db9c6
       navigation.navigate('Landing')
     }
   }

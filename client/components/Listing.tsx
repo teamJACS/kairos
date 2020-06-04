@@ -158,8 +158,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column-reverse',
     paddingBottom: 15,
-    marginLeft: 6,
-    marginRight: 6
+    marginLeft: 12,
+    marginRight: 12
   },
   input: {
     flexDirection: "row",

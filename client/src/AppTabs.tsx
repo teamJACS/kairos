@@ -35,30 +35,10 @@ function Home() {
 	return (
 		<View>
 			<HomePage />
-			<View style={styles.button}>
-				<Button
-					title='logout'
-					type="outline"
-					raised={true}
-					titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
-					containerStyle={{ borderWidth: 1 }}
-					buttonStyle={{ backgroundColor: "#99ccff", borderRadius: 10, }}
-					onPress={() => logout()}
-				>
-				</Button>
-			</View>
 		</View>
 	);
 }
-const styles = StyleSheet.create({
-	button: {
-		flex: 1,
-		justifyContent: 'flex-end',
-		marginBottom: 15,
-		position: 'absolute',
-		bottom: 0
-	}
-})
+
 
 function AddUpdateListing() {
 	return (

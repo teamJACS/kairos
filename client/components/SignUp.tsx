@@ -9,13 +9,19 @@ import { AuthContext } from "../src/AuthProvider";
 
 const Signup = ({ navigation }: AuthNavProps<"Login">) => {
   const { setUserId } = useContext(AuthContext)
-  const [createUserMutation, secondParam] = useMutation(CREATE_USER)
-  
-  const [email, setEmail] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
+  const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confirmPassword, setConfirmPassword] = React.useState('');
-
+  
+  const [createUserMutation] = useMutation(CREATE_USER, {
+    onError(err) {
+      setErrorMessage(`User Account with the email address already exists`);
+      setPassword('')
+      setEmail('')
+      setConfirmPassword('')
+    }
+  })
   const handleChangeEmail = (email: string) => {
     setEmail(email)
   }

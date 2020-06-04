@@ -5,6 +5,7 @@ import { Input, Button } from 'react-native-elements';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_USER } from '../src/queries'
+<<<<<<< HEAD
 import { useDispatch } from 'react-redux'
 import { setUserId } from "../redux/actions/actions";
 
@@ -15,6 +16,16 @@ const Signup = ({ navigation }: AuthNavProps<"Login">) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+=======
+import { AuthContext } from "../src/AuthProvider";
+
+const Signup = ({ navigation }: AuthNavProps<"Login">) => {
+  const { setUserId } = useContext(AuthContext)
+  const [errorMessage, setErrorMessage] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [confirmPassword, setConfirmPassword] = React.useState('');
+>>>>>>> 1885684a1ba03e61784e70668eafc55ac813db6b
 
   const [createUserMutation] = useMutation(CREATE_USER, {
     onError(err) {

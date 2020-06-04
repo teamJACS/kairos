@@ -11,11 +11,17 @@ const Login = ({ navigation }: AuthNavProps<"Login">) => {
   const dispatch = useDispatch()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const [getUserId, { loading, error, data }] = useLazyQuery(AUTH_USER, {
     variables: {
       email,
       password
+    },
+    onError(error) {
+      setErrorMessage(`Incorrect! Try Again!`);
+      setPassword('')
+      setEmail('')
     }
   });
 
@@ -27,7 +33,6 @@ const Login = ({ navigation }: AuthNavProps<"Login">) => {
   }
   const login = () => {
     getUserId()
-    // console.log(loading, data)
     if (!loading && data && data.auth && data.auth.id) {
       dispatch(setUserId(data.auth.id))
       navigation.navigate('Landing')
@@ -51,7 +56,7 @@ const Login = ({ navigation }: AuthNavProps<"Login">) => {
           leftIcon={{ type: 'material', name: 'lock' }}
           secureTextEntry
           errorStyle={{ color: 'red' }}
-          errorMessage='ENTER A VALID ERROR HERE'
+          errorMessage={errorMessage}
           onChangeText={(pw) => handleChangePassword(pw)}
         />
 

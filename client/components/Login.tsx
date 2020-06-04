@@ -4,16 +4,10 @@ import { AuthNavProps } from '../src/AuthParamList'
 import { Input, Button } from 'react-native-elements';
 import { AUTH_USER } from "../src/queries";
 import { useLazyQuery } from "@apollo/react-hooks";
-// import { AuthContext } from "../src/AuthProvider";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setUserId } from '../redux/actions/actions'
-import { IAuthState } from "../redux/interfaces";
-
-type User = null | { username: string };
 
 const Login = ({ navigation }: AuthNavProps<"Login">) => {
-  // const { setUserId } = useContext(AuthContext)
-  const userIdData = useSelector((state: IAuthState) => state.userId)
   const dispatch = useDispatch()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,13 +26,10 @@ const Login = ({ navigation }: AuthNavProps<"Login">) => {
     setPassword(password)
   }
   const login = () => {
-    console.log('setuserid', setUserId)
     getUserId()
     // console.log(loading, data)
     if (!loading && data && data.auth && data.auth.id) {
       dispatch(setUserId(data.auth.id))
-      console.log('getuser query', data.auth.id)
-      console.log('selector state', userIdData)
       navigation.navigate('Landing')
     }
   }

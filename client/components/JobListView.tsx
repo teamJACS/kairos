@@ -8,9 +8,17 @@ import { IAuthState, IJobIdState } from '../redux/interfaces';
 import { useDispatch } from 'react-redux'
 import { getJob } from '../redux/actions/jobActions'
 
+const ICON_MAPPING: any = {
+  "1": "star",
+  "2": "inbox",
+  "3": "smartphone",
+  "4": "file-document-edit",
+  "5": "group",
+  "6": "clear",
+  "7": "thumb-up",
+}
 
-
-const JobListing: React.FC = ({ navigation }: any) => {
+const JobListing: React.FC = () => {
   let jobs
 
   const dispatch = useDispatch()
@@ -55,7 +63,7 @@ const JobListing: React.FC = ({ navigation }: any) => {
         subtitle={item.location}
         key={item.id}
         rightIcon={{
-          name: 'playlist-add-check',
+          name: ICON_MAPPING[item.statusId],
           type: 'material',
           color: '#517fa4'
         }}

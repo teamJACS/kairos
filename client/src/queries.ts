@@ -9,12 +9,12 @@ query user($userId: ID!){
       company
       location
       notes,
-      jobTitle
+      jobTitle,
+      statusId
   }
   }
 }
 `
-
 
 export const AUTH_USER  = gql`
 query auth ($email: String!, $password: String!){

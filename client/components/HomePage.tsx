@@ -22,53 +22,39 @@ export const HomePage = () => {
         } dividerStyle={{ width: 0 }} title="Applied" titleStyle={{ color: 'dodgerblue' }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-around' }} >
             <AppliedNumber />
-
             <ScrollView style={{ height: 85, width: 100 }}>
               <View style={{ flexDirection: "column", justifyContent: 'center' }}>
-                <Text>Amazon</Text>
-                <Text>Facebook</Text>
-                <Text>Google</Text>
-                <Text>AT&T</Text>
+                <Text>reactFlo</Text>
                 <Text>Nike</Text>
                 <Text>Honey</Text>
-                <Text>Oracle</Text>
-                <Text>Disney</Text>
-                <Text>Portara</Text>
               </View>
             </ScrollView>
 
           </View>
         </Card>
 
-        <Card containerStyle={styles.card} dividerStyle={{ width: 0 }} title="Interview" titleStyle={{ color: 'dodgerblue' }}>
+        <Card containerStyle={styles.card} dividerStyle={{ width: 0 }} title="Phone Screen" titleStyle={{ color: 'dodgerblue' }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-around' }} >
             <InterviewNumber />
 
             <ScrollView style={{ height: 85, width: 100 }}>
               <View style={{ flexDirection: "column", justifyContent: 'center' }}>
-                <Text>SpeakerBoxx</Text>
-                <Text>Activision</Text>
                 <Text>Spearmint</Text>
-                <Text>Netflix</Text>
-                <Text>ReactionTime</Text>
               </View>
             </ScrollView>
 
           </View>
         </Card>
 
-        <Card containerStyle={styles.card} dividerStyle={{ width: 0 }} title="No Response" titleStyle={{ color: 'dodgerblue' }}>
+        <Card containerStyle={styles.card} dividerStyle={{ width: 0 }} title="Onsite" titleStyle={{ color: 'dodgerblue' }}>
           <View style={{ flexDirection: 'row', justifyContent: 'space-around' }} >
             <NoResponseNumber />
 
             <ScrollView style={{ height: 85, width: 100 }}>
               <View style={{ flexDirection: "column", justifyContent: 'center' }}>
-                <Text>CaryQL</Text>
-                <Text>Enron</Text>
-                <Text>ReactFlo</Text>
+                <Text>Chronos</Text>
               </View>
             </ScrollView>
-
           </View>
         </Card>
 
@@ -97,11 +83,9 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     shadowColor: '#000',
     shadowOffset: { width: -1, height: 1 },
-    shadowOpacity: .8,
+    shadowOpacity: .2,
     shadowRadius: 3,
     maxHeight: 170
-
-
   },
   button: {
     flexDirection: 'row',
@@ -109,12 +93,10 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     width: '100%',
     marginTop: 144,
-
   },
   header: {
     flexDirection: 'row',
     backgroundColor: '#99ccff',
-
   }
 })
 

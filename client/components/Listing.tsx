@@ -45,7 +45,6 @@ const Listing = ({ navigation } : any) => {
       setJobTitle('')
       setCompany('')
       setNotes('')
-      setStatus('')
       navigation.navigate('List View')
     }
     return;
@@ -67,28 +66,31 @@ const Listing = ({ navigation } : any) => {
       <View style={{ flex: 1, justifyContent: "center", paddingTop: 70, backgroundColor: "#fafafa" }}>
         <View style={styles.input}>
           <Input
-            placeholder='Job Title'
+            placeholder='Software Engineer'
             style={styles.inputField}
             onChangeText={text => setJobTitle(text)}
             value={jobTitle}
+            label='Job Title'
           />
         </View>
 
         <View style={styles.input}>
           <Input
-            placeholder='Company'
+            placeholder='Facebook'
             style={styles.inputField}
             onChangeText={text => setCompany(text)}
             value={company}
+            label='Company'
           />
         </View>
 
         <View style={styles.input}>
           <Input
-            placeholder='Location'
+            placeholder='LA'
             style={styles.inputField}
             onChangeText={text => setLocation(text)}
             value={location}
+            label='Location'
           />
         </View>
 
@@ -109,8 +111,8 @@ const Listing = ({ navigation } : any) => {
                 top: 4,
               },
               dateInput: {
-                marginLeft: 10
-              }
+                borderWidth: 0
+              },
               // ... You can check the source to find the other keys.
             }}
             onDateChange={date => setDate(date)}
@@ -119,17 +121,14 @@ const Listing = ({ navigation } : any) => {
 
         <View style={styles.input}>
           <Input
-            placeholder='Notes'
+            placeholder='You got this!'
             style={styles.inputField}
             onChangeText={text => setNotes(text)}
             value={notes}
+            label='Notes'
           />
         </View>
         <View style={{ paddingTop: 50 }}>
-          <View>
-            {/* <Text style={{ color: "dodgerblue", fontWeight: 'bold', fontSize: 18, alignSelf: 'center' }}>Current Status</Text> */}
-          </View>
-
           <View style={styles.status}>
             <Dropdown
               label='Status'

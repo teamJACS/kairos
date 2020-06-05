@@ -6,6 +6,16 @@ import { useQuery } from '@apollo/react-hooks'
 import { useSelector } from 'react-redux'
 import { IAuthState } from '../redux/interfaces';
 
+const ICON_MAPPING: any = {
+  "1" : "star",
+  "2" : "inbox",
+  "3" : "smartphone",
+  "4" : "file-document-edit",
+  "5" : "group",
+  "6" : "clear",
+  "7" : "thumb-up",
+}
+
 const JobListing: React.FC = () => {
   let jobs
   const userId = useSelector((state: IAuthState) => state.auth.userId)
@@ -34,7 +44,7 @@ const JobListing: React.FC = () => {
         rightSubtitle={item.location}
         key={item.id}
         rightIcon={{
-          name: 'playlist-add-check',
+          name: ICON_MAPPING[item.statusId],
           type: 'material',
           color: '#517fa4'
         }}

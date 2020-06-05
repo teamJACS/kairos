@@ -1,20 +1,32 @@
 import React from 'react'
 import { FlatList, SafeAreaView, Text, View, StyleSheet } from "react-native"
 import { ListItem, SearchBar } from 'react-native-elements';
-import { GET_USER } from '../src/queries'
+import { GET_USER, GET_JOB } from '../src/queries'
 import { useQuery } from '@apollo/react-hooks'
 import { useSelector } from 'react-redux'
 import { IAuthState, IJobIdState } from '../redux/interfaces';
 import { useDispatch } from 'react-redux'
 import { getJob } from '../redux/actions/jobActions'
 
+
+
 const JobListing: React.FC = ({ navigation }: any) => {
   let jobs
+
   const dispatch = useDispatch()
+
   const userId = useSelector((state: IAuthState) => state.auth.userId)
+  const jobId = useSelector((state: IJobIdState) => state.job.jobId)
   const { loading, error, data, refetch } = useQuery(GET_USER, {
     variables: { userId }
   })
+
+  // const [getJobInfo, { loading: jLoading, error: jError, data: jData }] = useLazyQuery(GET_JOB, {
+  //   variables: {
+  //     userId,
+  //     jobId
+  //   }
+  // });
 
   if (!loading && data && data.user && data.user.jobs) {
     jobs = data.user.jobs
@@ -34,8 +46,10 @@ const JobListing: React.FC = ({ navigation }: any) => {
     return (
       <ListItem
         title={item.company}
-        onPress={() => {
+        onPress={async () => {
           dispatch(getJob(item.id))
+          // const jobState = await getJobInfo()
+          // console.log('jobState', jobState)
           handleClickListItem()
         }}
         subtitle={item.location}

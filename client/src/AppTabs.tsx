@@ -2,15 +2,8 @@ import React from 'react'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AppParamList } from './AppParamList';
 import { View } from "react-native";
-import { Center } from "../components/Center";
 import JobListView from '../components/JobListView';
-<<<<<<< HEAD
-import { Listing } from '../components/Listing'
-=======
 import Listing from '../components/Listing'
-import { useDispatch } from 'react-redux'
-import { setUserId } from '../redux/actions/actions';
->>>>>>> 2ac5d74a81b80dcb132526c1c340aa2aba3f6835
 import { HomePage } from '../components/HomePage';
 
 interface AppTabsProps {

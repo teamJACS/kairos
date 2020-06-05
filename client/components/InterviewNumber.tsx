@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
 
 export const InterviewNumber = () => {
-    const [number, setNumber] = useState('4')
+    const [number, setNumber] = useState('1')
     return (
         <Text style={styles.number}>
             {number}
@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
     number: {
         fontSize: 50,
         paddingRight: 25,
-        paddingLeft: 54
         // marginLeft: 'auto',
         // marginRight: 'auto'
     }

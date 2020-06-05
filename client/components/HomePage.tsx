@@ -5,71 +5,71 @@ import { AppliedNumber } from './AppliedNumber';
 import { InterviewNumber } from './InterviewNumber';
 import { NoResponseNumber } from './NoResponseNumber';
 import { useDispatch } from 'react-redux';
-import { setUserId } from '../redux/actions/actions';
+import { setUserId } from '../redux/actions/authActions';
 
 
 export const HomePage = () => {
   const dispatch = useDispatch()
   const logout = () => dispatch(setUserId(null))
 
+
   return (
-    <SafeAreaView>
-      <Header containerStyle={styles.header} centerComponent={{
-        text: "Job", style: { color: "white", fontWeight: "bold", fontSize: 30, bottom: 15 }
-      }} />
+    <SafeAreaView style={{ backgroundColor: 'white' }}>
+      <Text style={{ flexDirection: 'row', justifyContent: "flex-end", fontSize: 25, fontWeight: "bold", color: "dodgerblue", alignSelf: 'center' }}>Kwik Jabs</Text>
 
-      <Card containerStyle={styles.card
-      } dividerStyle={{ width: 0 }} title="Applied">
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }} >
-          <AppliedNumber />
-          <ScrollView>
-            <View style={{ flexDirection: "column", justifyContent: 'center' }}>
-              <Text>Amazon</Text>
-              <Text>Facebook</Text>
-              <Text>Google</Text>
-              <Text>Google</Text>
-              <Text>Google</Text>
-              <Text>Google</Text>
-            </View>
-          </ScrollView>
-        </View>
-      </Card>
+      <View style={{ backgroundColor: "#fafafa" }}>
+        <Card containerStyle={styles.card
+        } dividerStyle={{ width: 0 }} title="Applied" titleStyle={{ color: 'dodgerblue' }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around' }} >
+            <AppliedNumber />
+            <ScrollView style={{ height: 85, width: 100 }}>
+              <View style={{ flexDirection: "column", justifyContent: 'center' }}>
+                <Text>reactFlo</Text>
+                <Text>Nike</Text>
+                <Text>Honey</Text>
+              </View>
+            </ScrollView>
 
-      <Card containerStyle={styles.card} dividerStyle={{ width: 0 }} title="Interview">
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }} >
-          <InterviewNumber />
-          {/* <View style={{ flexDirection: "column", justifyContent: 'center', left: 32 }}> */}
-          <View style={{ flexDirection: "column", justifyContent: 'center' }}>
-            <Text>SpeakerBoxx</Text>
-            <Text>Activision</Text>
-            <Text>Sieun's Company</Text>
-            <Text>Netflix</Text>
           </View>
-        </View>
-      </Card>
+        </Card>
 
-      <Card containerStyle={styles.card} dividerStyle={{ width: 0 }} title="No Response">
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around' }} >
-          <NoResponseNumber />
-          {/* <View style={{ flexDirection: "column", justifyContent: 'center', right: 20 }}> */}
-          <View style={{ flexDirection: "column", justifyContent: 'center' }}>
-            <Text>CaryQL</Text>
-            <Text>Enron</Text>
+        <Card containerStyle={styles.card} dividerStyle={{ width: 0 }} title="Phone Screen" titleStyle={{ color: 'dodgerblue' }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around' }} >
+            <InterviewNumber />
+
+            <ScrollView style={{ height: 85, width: 100 }}>
+              <View style={{ flexDirection: "column", justifyContent: 'center' }}>
+                <Text>Spearmint</Text>
+              </View>
+            </ScrollView>
+
           </View>
-        </View>
-      </Card>
+        </Card>
 
-      <View style={styles.button}>
-        <Button
-          title='logout'
-          type="outline"
-          raised={true}
-          titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
-          containerStyle={{ borderWidth: 1 }}
-          buttonStyle={{ backgroundColor: "#99ccff", borderRadius: 10, }}
-          onPress={logout}
-        >
-        </Button>
+        <Card containerStyle={styles.card} dividerStyle={{ width: 0 }} title="Onsite" titleStyle={{ color: 'dodgerblue' }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around' }} >
+            <NoResponseNumber />
+
+            <ScrollView style={{ height: 85, width: 100 }}>
+              <View style={{ flexDirection: "column", justifyContent: 'center' }}>
+                <Text>Chronos</Text>
+              </View>
+            </ScrollView>
+          </View>
+        </Card>
+
+        <View style={styles.button}>
+          <Button
+            title='Logout'
+            type="outline"
+            raised={true}
+            titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
+            containerStyle={{ borderWidth: 1 }}
+            buttonStyle={{ backgroundColor: "#99ccff", borderRadius: 10, }}
+            onPress={logout}
+          >
+          </Button>
+        </View>
       </View>
     </SafeAreaView >
   )
@@ -83,21 +83,20 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     shadowColor: '#000',
     shadowOffset: { width: -1, height: 1 },
-    shadowOpacity: .8,
+    shadowOpacity: .2,
     shadowRadius: 3,
-
-
+    maxHeight: 170
   },
   button: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 100
+    alignSelf: 'stretch',
+    width: '100%',
+    marginTop: 144,
   },
   header: {
     flexDirection: 'row',
     backgroundColor: '#99ccff',
-
   }
 })
 

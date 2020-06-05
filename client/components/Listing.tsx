@@ -1,57 +1,139 @@
-import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import React, { useMemo } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, Alert } from 'react-native';
 import DatePicker from 'react-native-datepicker';
-import Constants from 'expo-constants';
-import { Header, Input, Button, Icon } from 'react-native-elements';
+import { Input, Button } from 'react-native-elements';
 import { Dropdown } from 'react-native-material-dropdown';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import { CREATE_JOB, GET_USER, GET_JOB } from '../src/queries'
+import { useMutation, useQuery } from '@apollo/react-hooks'
+import RIGHT_ICON_MAPPING from '../src/statusIconMap';
+import { useSelector } from 'react-redux'
+import { IAuthState, IJobIdState } from '../redux/interfaces';
 
-export const Listing = () => {
-  const [title, setTitle] = useState('')
-  const [company, setCompany] = useState('')
-  const [date, setDate] = useState('')
-  const [notes, setNotes] = useState('')
-  const [status, setStatus] = useState('status')
+const obj = {
+  a: false,
+  b: false,
+  c: false,
+  d: false
+}
 
-  const saveButton = () => {
+const Listing = ({ navigation }: any) => {
+  const jobId = useSelector((state: IJobIdState) => state.job.jobId)
+  const userId = useSelector((state: IAuthState) => state.auth.userId)
+
+  const { loading, error, data } = useQuery(GET_JOB, {
+    variables: { userId, jobId }
+  })
+
+
+
+  const [jobTitle, setJobTitle] = React.useState('')
+  const [location, setLocation] = React.useState('')
+  const [company, setCompany] = React.useState('')
+  const [date, setDate] = React.useState("")
+  const [notes, setNotes] = React.useState('')
+  const [statusText, setStatus] = React.useState('')
+  const [createJobMutation] = useMutation(CREATE_JOB, {
+    refetchQueries: [{
+      query: GET_USER,
+      variables: { userId }
+    }],
+  })
+
+  console.log(obj)
+  if (loading) return <Text>Loading....</Text>
+  if (!loading && data) {
+    console.log('data from Listing', data)
+    if (!obj.a) {
+      setJobTitle(data.getJob.jobTitle)
+      obj.a = true
+    }
+    if (!obj.b) {
+      setCompany(data.getJob.company)
+      obj.b = true
+    }
+    if (!obj.c) {
+      setNotes(data.getJob.notes)
+      obj.c = true
+    }
+    if (!obj.d) {
+      setLocation(data.getJob.location)
+      obj.d = true
+    }
+  }
+
+  const handlePressCreateButton = async () => {
+    if (company === '' || jobTitle === '' || statusText === '') {
+      Alert.alert('Company, Job Title and Status are required')
+      return
+    } else {
+      const statusId = RIGHT_ICON_MAPPING[statusText]
+      await createJobMutation({
+        variables: {
+          jobTitle,
+          location,
+          company,
+          date,
+          notes,
+          statusId,
+          userId
+        }
+      })
+      setLocation('')
+      setJobTitle('')
+      setCompany('')
+      setNotes('')
+      navigation.navigate('List View')
+    }
     return;
   }
-  const createButton = () => {
-    return;
-  }
-  const deleteButton = () => {
-    return;
-  }
 
-  let options = [{ value: 'Interested' }, { value: 'Applied' }, { value: 'Phone Screen' }, { value: 'Take Home' }, { value: 'Onsite' }, { value: 'Rejected' }, { value: 'Offer $' }]
+  let options = [
+    { value: 'Interested' },
+    { value: 'Applied' },
+    { value: 'Phone Screen' },
+    { value: 'Take Home' },
+    { value: 'Onsite' },
+    { value: 'Rejected' },
+    { value: 'Offer $' }
+  ]
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <Text style={{ flexDirection: 'row', justifyContent: "flex-end", fontSize: 25, fontWeight: "bold", color: "dodgerblue", alignSelf: 'center' }}>Listing</Text>
       <View style={{ flex: 1, justifyContent: "center", paddingTop: 70, backgroundColor: "#fafafa" }}>
-        {/* Job Title */}
         <View style={styles.input}>
-          {/* <Text>Job Title</Text> */}
           <Input
-            placeholder='Job Title'
+            placeholder='Software Engineer'
             style={styles.inputField}
-            onChangeText={text => setTitle(text)}
-            value={title}
+            onChangeText={text => setJobTitle(text)}
+            value={jobTitle}
+            label='Job Title'
           />
         </View>
-        {/* Company */}
+
         <View style={styles.input}>
           <Input
-            placeholder='Company'
+            placeholder='Facebook'
             style={styles.inputField}
             onChangeText={text => setCompany(text)}
             value={company}
+            label='Company'
           />
         </View>
-        {/* Applied Date */}
+
         <View style={styles.input}>
+          <Input
+            placeholder='LA'
+            style={styles.inputField}
+            onChangeText={text => setLocation(text)}
+            value={location}
+            label='Location'
+          />
+        </View>
+
+        <View style={{ alignItems: "center" }}>
           <DatePicker
-            style={{ width: 175 }}
+            style={{ width: 200, borderBottomColor: '#fff' }}
             date={date}
             mode="date"
             placeholder="Applied Date"
@@ -66,28 +148,24 @@ export const Listing = () => {
                 top: 4,
               },
               dateInput: {
-                marginLeft: 10
-              }
+                borderWidth: 0
+              },
               // ... You can check the source to find the other keys.
             }}
             onDateChange={date => setDate(date)}
           />
         </View>
-        {/* Notes */}
+
         <View style={styles.input}>
           <Input
-            placeholder='Notes'
+            placeholder='You got this!'
             style={styles.inputField}
             onChangeText={text => setNotes(text)}
             value={notes}
+            label='Notes'
           />
         </View>
         <View style={{ paddingTop: 50 }}>
-          <View>
-            <Text style={{ color: "dodgerblue", fontWeight: 'bold', fontSize: 18, alignSelf: 'center' }}>Current Status</Text>
-          </View>
-
-          {/* Status */}
           <View style={styles.status}>
             <Dropdown
               label='Status'
@@ -98,49 +176,17 @@ export const Listing = () => {
           </View>
         </View>
 
-
-        {/* Buttons */}
         <View style={styles.buttons}>
           <View style={styles.fixToText}>
-
-            {/* Create Button */}
             <Button
+              style={{ marginRight: 20 }}
               title='Create'
-              type="outline"
+              type="clear"
               raised={true}
               titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
-              containerStyle={{ borderWidth: 1 }}
               buttonStyle={{ backgroundColor: "#99ccff", borderRadius: 10 }}
-
-              // style={{ backgroundColor: "#99ccff", padding: 10, borderRadius: 10 }}
-              onPress={() => createButton()}
-            >
-            </Button>
-
-            {/* Save Button */}
-            <Button
-              title='Update'
-              type="outline"
-              raised={true}
-              titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
-              containerStyle={{ borderWidth: 1 }}
-              buttonStyle={{ backgroundColor: "#43F45B", borderRadius: 10, }}
-              // style={{ backgroundColor: "#99ccff", padding: 10, borderRadius: 10 }}
-              onPress={() => createButton()}
-            >
-            </Button>
-
-            {/* Delete Button */}
-            <Button
-              title="Delete"
-              type="outline"
-              raised={true}
-              titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
-              containerStyle={{ borderWidth: 1 }}
-              buttonStyle={{ backgroundColor: "#ff7676", borderRadius: 10 }}
-              onPress={() => deleteButton()}
-            >
-            </Button>
+              onPress={handlePressCreateButton}
+            />
           </View>
         </View>
       </View>
@@ -149,11 +195,14 @@ export const Listing = () => {
   );
 }
 
+export default Listing
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Constants.statusBarHeight,
-    marginHorizontal: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white"
   },
   title: {
     textAlign: 'center',
@@ -161,7 +210,7 @@ const styles = StyleSheet.create({
   },
   fixToText: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
   },
   separator: {
     marginVertical: 8,
@@ -172,8 +221,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column-reverse',
     paddingBottom: 40,
-    marginLeft: 12,
-    marginRight: 12
   },
   input: {
     flexDirection: "row",

@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_USER } from '../src/queries'
 import { useDispatch } from 'react-redux'
-import { setUserId } from "../redux/actions/actions";
+import { setUserId } from "../redux/actions/authActions";
 
 const Signup = ({ navigation }: AuthNavProps<"Login">) => {
   const dispatch = useDispatch()

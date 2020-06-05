@@ -1,32 +1,51 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { FlatList, SafeAreaView, Text, View, StyleSheet } from "react-native"
 import { ListItem, SearchBar } from 'react-native-elements';
-import { GET_USER } from '../src/queries'
+import { GET_USER, GET_JOB } from '../src/queries'
 import { useQuery } from '@apollo/react-hooks'
 import { useSelector } from 'react-redux'
-import { IAuthState } from '../redux/interfaces';
+import { IAuthState, IJobIdState } from '../redux/interfaces';
+import { useDispatch } from 'react-redux'
+import { getJob } from '../redux/actions/jobActions'
 
-const JobListing: React.FC = () => {
+
+
+const JobListing: React.FC = ({ navigation }: any) => {
+  const ICON_MAPPING: any = {
+    "1": "star",
+    "2": "inbox",
+    "3": "smartphone",
+    "4": "file-document-edit",
+    "5": "group",
+    "6": "clear",
+    "7": "thumb-up",
+  }
+
   let jobs
+
+  const dispatch = useDispatch()
+
   const userId = useSelector((state: IAuthState) => state.auth.userId)
-  const { loading, error, data } = useQuery(GET_USER, { variables: { userId } })
+  const jobId = useSelector((state: IJobIdState) => state.job.jobId)
+  const { loading, error, data, refetch } = useQuery(GET_USER, {
+    variables: { userId }
+  })
+
+  // const [getJobInfo, { loading: jLoading, error: jError, data: jData }] = useLazyQuery(GET_JOB, {
+  //   variables: {
+  //     userId,
+  //     jobId
+  //   }
+  // });
 
   if (!loading && data && data.user && data.user.jobs) {
     jobs = data.user.jobs
   }
 
   const handleClickListItem = () => {
-    console.log('Clicked')
-  }
-
-  const RIGHT_ICON_MAPPING = {
-    1: 'feedback',
-    2: 'feedback,',
-    3: 'call,',
-    4: 'file-document-edit,',
-    5: 'group,',
-    6: 'thumb-down,',
-    7: 'thumb-up,',
+    return (
+      navigation.navigate('Add/Update')
+    )
   }
 
   const renderHeader = () => {
@@ -37,11 +56,16 @@ const JobListing: React.FC = () => {
     return (
       <ListItem
         title={item.company}
-        onPress={handleClickListItem}
+        onPress={async () => {
+          dispatch(getJob(item.id))
+          // const jobState = await getJobInfo()
+          // console.log('jobState', jobState)
+          handleClickListItem()
+        }}
         subtitle={item.location}
         key={item.id}
         rightIcon={{
-          name: 'playlist-add-check',
+          name: ICON_MAPPING[item.statusId],
           type: 'material',
           color: '#517fa4'
         }}

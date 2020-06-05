@@ -9,7 +9,7 @@ import RIGHT_ICON_MAPPING from '../src/statusIconMap';
 import { useSelector } from 'react-redux'
 import { IAuthState, IJobIdState } from '../redux/interfaces';
 
-let obj = {
+const obj = {
   a: false,
   b: false,
   c: false,
@@ -39,9 +39,9 @@ const Listing = ({ navigation }: any) => {
     }],
   })
 
-
+  console.log(obj)
   if (loading) return <Text>Loading....</Text>
-  if (!loading && data && data.getJob.jobTitle && data.getJob.company && data.getJob.notes && data.getJob.location) {
+  if (!loading && data) {
     console.log('data from Listing', data)
     if (!obj.a) {
       setJobTitle(data.getJob.jobTitle)

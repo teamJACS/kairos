@@ -8,17 +8,19 @@ import { IAuthState, IJobIdState } from '../redux/interfaces';
 import { useDispatch } from 'react-redux'
 import { getJob } from '../redux/actions/jobActions'
 
-const ICON_MAPPING: any = {
-  "1": "star",
-  "2": "inbox",
-  "3": "smartphone",
-  "4": "file-document-edit",
-  "5": "group",
-  "6": "clear",
-  "7": "thumb-up",
-}
 
-const JobListing: React.FC = () => {
+
+const JobListing: React.FC = ({ navigation }: any) => {
+  const ICON_MAPPING: any = {
+    "1": "star",
+    "2": "inbox",
+    "3": "smartphone",
+    "4": "file-document-edit",
+    "5": "group",
+    "6": "clear",
+    "7": "thumb-up",
+  }
+
   let jobs
 
   const dispatch = useDispatch()

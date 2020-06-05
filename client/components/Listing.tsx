@@ -1,31 +1,68 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, Alert } from 'react-native';
 import DatePicker from 'react-native-datepicker';
-import { Input, Button} from 'react-native-elements';
+import { Input, Button } from 'react-native-elements';
 import { Dropdown } from 'react-native-material-dropdown';
-import { CREATE_JOB, GET_USER } from '../src/queries'
-import { useMutation } from '@apollo/react-hooks'
+import { CREATE_JOB, GET_USER, GET_JOB } from '../src/queries'
+import { useMutation, useQuery } from '@apollo/react-hooks'
 import RIGHT_ICON_MAPPING from '../src/statusIconMap';
 import { useSelector } from 'react-redux'
-import { IAuthState } from '../redux/interfaces';
+import { IAuthState, IJobIdState } from '../redux/interfaces';
 
-const Listing = ({ navigation } : any) => {
+const obj = {
+  a: false,
+  b: false,
+  c: false,
+  d: false
+}
+
+const Listing = ({ navigation }: any) => {
+  const jobId = useSelector((state: IJobIdState) => state.job.jobId)
+  const userId = useSelector((state: IAuthState) => state.auth.userId)
+
+  const { loading, error, data } = useQuery(GET_JOB, {
+    variables: { userId, jobId }
+  })
+
+
+
   const [jobTitle, setJobTitle] = React.useState('')
   const [location, setLocation] = React.useState('')
   const [company, setCompany] = React.useState('')
   const [date, setDate] = React.useState("")
   const [notes, setNotes] = React.useState('')
   const [statusText, setStatus] = React.useState('')
-  const userId = useSelector((state: IAuthState) => state.auth.userId)
   const [createJobMutation] = useMutation(CREATE_JOB, {
-    refetchQueries: [ { 
+    refetchQueries: [{
       query: GET_USER,
       variables: { userId }
     }],
   })
 
+  console.log(obj)
+  if (loading) return <Text>Loading....</Text>
+  if (!loading && data) {
+    console.log('data from Listing', data)
+    if (!obj.a) {
+      setJobTitle(data.getJob.jobTitle)
+      obj.a = true
+    }
+    if (!obj.b) {
+      setCompany(data.getJob.company)
+      obj.b = true
+    }
+    if (!obj.c) {
+      setNotes(data.getJob.notes)
+      obj.c = true
+    }
+    if (!obj.d) {
+      setLocation(data.getJob.location)
+      obj.d = true
+    }
+  }
+
   const handlePressCreateButton = async () => {
-    if(company === '' || jobTitle === '' || statusText === '') {
+    if (company === '' || jobTitle === '' || statusText === '') {
       Alert.alert('Company, Job Title and Status are required')
       return
     } else {
@@ -51,12 +88,12 @@ const Listing = ({ navigation } : any) => {
   }
 
   let options = [
-    { value: 'Interested' }, 
-    { value: 'Applied' }, 
-    { value: 'Phone Screen' }, 
-    { value: 'Take Home' }, 
-    { value: 'Onsite' }, 
-    { value: 'Rejected' }, 
+    { value: 'Interested' },
+    { value: 'Applied' },
+    { value: 'Phone Screen' },
+    { value: 'Take Home' },
+    { value: 'Onsite' },
+    { value: 'Rejected' },
     { value: 'Offer $' }
   ]
 
@@ -96,7 +133,7 @@ const Listing = ({ navigation } : any) => {
 
         <View style={{ alignItems: "center" }}>
           <DatePicker
-            style={{ width: 200, borderBottomColor: '#fff'}}
+            style={{ width: 200, borderBottomColor: '#fff' }}
             date={date}
             mode="date"
             placeholder="Applied Date"
@@ -142,7 +179,7 @@ const Listing = ({ navigation } : any) => {
         <View style={styles.buttons}>
           <View style={styles.fixToText}>
             <Button
-              style={ {marginRight: 20}}
+              style={{ marginRight: 20 }}
               title='Create'
               type="clear"
               raised={true}

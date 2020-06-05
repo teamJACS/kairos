@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-export const GET_USER  = gql`
+export const GET_USER = gql`
 query user($userId: ID!){
   user(userId: $userId) {
     id,
@@ -16,7 +16,22 @@ query user($userId: ID!){
 }
 `
 
-export const AUTH_USER  = gql`
+export const GET_JOB = gql`
+query getJob ($userId: ID!, $jobId: ID!) {
+  getJob (userId: $userId, jobId: $jobId) {
+    company
+    jobTitle
+    statusId
+    notes
+    location
+  }
+}
+`
+
+
+
+
+export const AUTH_USER = gql`
 query auth ($email: String!, $password: String!){
   auth (email: $email, password: $password) {
     id

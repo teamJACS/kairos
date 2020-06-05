@@ -5,7 +5,7 @@ import { AppliedNumber } from './AppliedNumber';
 import { InterviewNumber } from './InterviewNumber';
 import { NoResponseNumber } from './NoResponseNumber';
 import { useDispatch } from 'react-redux';
-import { setUserId } from '../redux/actions/actions';
+import { setUserId } from '../redux/actions/authActions';
 
 
 export const HomePage = () => {

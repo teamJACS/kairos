@@ -1,21 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
-import { Header, Card, Button } from 'react-native-elements';
+import { Card } from 'react-native-elements';
 import { AppliedNumber } from './AppliedNumber';
 import { InterviewNumber } from './InterviewNumber';
 import { NoResponseNumber } from './NoResponseNumber';
-import { useDispatch } from 'react-redux';
-import { setUserId } from '../redux/actions/actions';
 
 
 export const HomePage = () => {
-  const dispatch = useDispatch()
-  const logout = () => dispatch(setUserId(null))
-
-
   return (
     <SafeAreaView style={{ backgroundColor: 'white' }}>
-      <Text style={{ flexDirection: 'row', justifyContent: "flex-end", fontSize: 25, fontWeight: "bold", color: "dodgerblue", alignSelf: 'center' }}>Kwik Jabs</Text>
+      <Text style={{ flexDirection: 'row', justifyContent: "flex-end", fontSize: 25, fontWeight: "bold", color: "dodgerblue", alignSelf: 'center' }}>Kairos</Text>
 
       <View style={{ backgroundColor: "#fafafa" }}>
         <Card containerStyle={styles.card
@@ -57,19 +51,6 @@ export const HomePage = () => {
             </ScrollView>
           </View>
         </Card>
-
-        <View style={styles.button}>
-          <Button
-            title='Logout'
-            type="outline"
-            raised={true}
-            titleStyle={{ color: "#fafafa", fontWeight: "bold" }}
-            containerStyle={{ borderWidth: 1 }}
-            buttonStyle={{ backgroundColor: "#99ccff", borderRadius: 10, }}
-            onPress={logout}
-          >
-          </Button>
-        </View>
       </View>
     </SafeAreaView >
   )

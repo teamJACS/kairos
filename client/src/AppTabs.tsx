@@ -2,12 +2,10 @@ import React from 'react'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { AppParamList } from './AppParamList';
 import { View } from "react-native";
-import { Center } from "../components/Center";
 import JobListView from '../components/JobListView';
 import Listing from '../components/Listing'
-import { useDispatch } from 'react-redux'
-import { setUserId } from '../redux/actions/actions';
 import { HomePage } from '../components/HomePage';
+import More from '../components/More';
 
 interface AppTabsProps {
 
@@ -29,7 +27,8 @@ export const AppTabs: React.ComponentType<AppTabsProps> = ({ }) => {
     <Tabs.Navigator>
       <Tabs.Screen name='Home' component={Home} />
       <Tabs.Screen name='List View' component={JobListView} />
-      <Tabs.Screen name='Add/Update' component={Listing} />
+      <Tabs.Screen name='Add New' component={Listing}/>
+      <Tabs.Screen name='More' component={More}/>
     </Tabs.Navigator>
   )
 }
